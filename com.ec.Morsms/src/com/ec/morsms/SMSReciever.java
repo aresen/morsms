@@ -1,4 +1,4 @@
-package com.example.com.ec.morsms;
+package com.ec.morsms;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -34,6 +34,9 @@ public class SMSReciever extends BroadcastReceiver {
             }
             //---display the new SMS message---
             Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
+            
+            // Vibration
+            
         }
 	}
 }

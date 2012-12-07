@@ -1,4 +1,4 @@
-package com.example.com.ec.morsms;
+package com.ec.morsms;
 
 import android.app.Activity;
 import android.os.Bundle;
