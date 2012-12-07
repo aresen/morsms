@@ -1,4 +1,4 @@
-//#include<iostream>
+#include<iostream>
 #include<string.h>
 #include<vector>
 #include<fstream>
@@ -145,7 +145,7 @@ for (int i = 0 ; i < txtlen ; i++)
 
 for (vector<char>::iterator j = cvec.begin() ; j != cvec.end() ; ++j) 
 {
-  cout << "char # " << index << " value: " << *j << endl ; 
+  // cout << "char # " << index << " value: " << *j << endl ;
 
 
   morse(*j,mvec) ; // convert to morse symbols
@@ -192,7 +192,7 @@ for (vector<char>::iterator j = cvec.begin() ; j != cvec.end() ; ++j)
 
 
 sz = signal.size() ; 
-long int *output = new long int[sz] ; 
+long int *output = new long int[sz] ;
 int kk = 0 ;
 // write vibration signal to vibsig.txt - debugging
 // convert to array of ints for output to java
@@ -762,12 +762,12 @@ int lp = 7*unit ; // inter-word pause
 // c code
 extern "C" {
     // translate and return the message 
-    jlong[]
+    // jlong[]
     // path below not right, needs to be adjusted 
-    Java_com_ec_Morsms_smsreceiver_trans( JNIEnv * env, jobject obj, jstring msg_in, jint unit_in) 
+    jlongArray Java_com_ec_Morsms_smsreceiver_trans( JNIEnv * env, jobject obj, jstring msg_in, jint unit_in)
 
     {
-         string msg = msg_in ; 
+         string msg = msg_in ;
          int unit = unit_in ; 
          return *translate(msg,unit) ; 
     } 
