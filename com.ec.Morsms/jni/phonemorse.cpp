@@ -5,6 +5,7 @@
 #include<vector>
 #include<fstream>
 #include<stdlib.h>
+#include<sstream> 
 
 using namespace std ; 
 
@@ -195,20 +196,44 @@ for (vector<char>::iterator j = cvec.begin() ; j != cvec.end() ; ++j)
 
 
 sz = signal.size() ; 
-char *output = new char[sz] ;
-int kk = 0 ;
+//char *output = new char[sz] ;
+//int kk = 0 ;
 // write vibration signal to vibsig.txt - debugging
 // convert to array of ints for output to java
+string pstring ;
+int pint ; 
+stringstream out ; 
+vector<char> charvec ;
 for (vector<long>::iterator j = signal.begin() ; j != signal.end() ; ++j) 
 {
  //   vibsig << *j << endl ; 
-    output[kk] = static_cast<char>(*j) ;
+ //   output[kk] = static_cast<char>(*j) ;
   //  cout << output[kk] << endl ; 
-    kk++ ;
+  //  kk++ ;
+      pint = static_cast<int>(*j) ; 
+      out << pint ; 
+      pstring = out.str() ; 
+      out.str(string()) ; // clear the string stream
+      
+      for ( int ii = 0 ; ii < pstring.length() ; ii++) 
+      { 
+          charvec.push_back(static_cast<char>(pstring[ii])) ; 
+      }
+      charvec.push_back('\n') ; 
+      pstring.erase() ; 
+
 }
 
 //mcode.close() ; 
 //vibsig.close() ; 
+
+char *output = new char[charvec.size()] ;
+int kk = 0 ; 
+for (vector<char>::iterator j = cvec.begin() ; j != cvec.end() ; ++j) 
+{
+    output[kk] = (*j) ; 
+    kk++ ; 
+} 
 
 return output;
 }
