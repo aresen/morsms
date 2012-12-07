@@ -3,6 +3,7 @@
 #include<vector>
 #include<fstream>
 #include<stdlib.h>
+//#include<jni.h>
 using namespace std ; 
 
 // c++ code
@@ -10,14 +11,14 @@ using namespace std ;
 char makeupper(char input) ; // convert lower to upper case 
 void morse(char input, vector<string> &vec) ; // morse symbol
 void sigdur(char input, vector<long> &vec, int unit) ; // signal duration
-//static int sz ; //ending array size
+static int sz ; //ending array size
 
 int main() {
 return 0 ; 
 }  // nothing to see here
 
 
-int * translate( string msg , int unit) 
+long int * translate( string msg , int unit) 
 {
 
 
@@ -194,7 +195,7 @@ for (vector<char>::iterator j = cvec.begin() ; j != cvec.end() ; ++j)
 
 //string strsig ; // output the vibration signal as a string
 sz = signal.size() ; 
-int *output = new int[sz] ; 
+long int *output = new long int[sz] ; 
 int kk = 0 ;
 // write vibration signal to vibsig.txt 
 for (vector<long>::iterator j = signal.begin() ; j != signal.end() ; ++j) 
@@ -759,6 +760,21 @@ int lp = 7*unit ; // inter-word pause
         vec.push_back (dot) ;
      }
 } 
+
+extern "C" {
+    // translate and return the message 
+    jlong[]
+    Java_MainActivity_src_smsreceiver_trans( JNIEnv * env, jobject obj, jstring msg_in, jint unit_in) 
+
+    {
+         string msg = msg_in ; 
+         int unit = unit_in ; 
+         return *translate(msg,unit) ; 
+    } 
+
+}
+
+
 
 //int returnsize()  
 //{
