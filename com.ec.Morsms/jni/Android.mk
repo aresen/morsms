@@ -6,7 +6,7 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE    := phonemorse
-LOCAL_SRC_FILES := phonemorse.cpp
+LOCAL_MODULE    := morse
+LOCAL_SRC_FILES := slimmorse.cpp
 
 include $(BUILD_SHARED_LIBRARY)
