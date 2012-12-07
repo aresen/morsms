@@ -3,7 +3,7 @@
 #include<vector>
 #include<fstream>
 #include<stdlib.h>
-//#include<jni.h>
+#include<jni.h>
 using namespace std ; 
 
 // c++ code
@@ -190,14 +190,12 @@ for (vector<char>::iterator j = cvec.begin() ; j != cvec.end() ; ++j)
 //}
 //    cout << "\n" ; 
 
-// make output as a string
 
-
-//string strsig ; // output the vibration signal as a string
 sz = signal.size() ; 
 long int *output = new long int[sz] ; 
 int kk = 0 ;
-// write vibration signal to vibsig.txt 
+// write vibration signal to vibsig.txt - debugging
+// convert to array of ints for output to java
 for (vector<long>::iterator j = signal.begin() ; j != signal.end() ; ++j) 
 {
  //   vibsig << *j << endl ; 
@@ -761,9 +759,11 @@ int lp = 7*unit ; // inter-word pause
      }
 } 
 
+// c code
 extern "C" {
     // translate and return the message 
     jlong[]
+    // path below not right, needs to be adjusted 
     Java_MainActivity_src_smsreceiver_trans( JNIEnv * env, jobject obj, jstring msg_in, jint unit_in) 
 
     {
@@ -775,7 +775,7 @@ extern "C" {
 }
 
 
-
+// delete later ? 
 //int returnsize()  
 //{
 //  return sz ; 
