@@ -1,9 +1,11 @@
-#include<iostream>
+#include<jni.h>
+//#include<iostream>
 #include<string.h>
+#include<cstring>
 #include<vector>
 #include<fstream>
 #include<stdlib.h>
-#include<jni.h>
+
 using namespace std ; 
 
 // c++ code
@@ -13,12 +15,13 @@ void morse(char input, vector<string> &vec) ; // morse symbol
 void sigdur(char input, vector<long> &vec, int unit) ; // signal duration
 static int sz ; //ending array size
 
+string msg;
 int main() {
 return 0 ; 
 }  // nothing to see here
 
 
-long int * translate( string msg , int unit) 
+char * translate( string msg , int unit)
 {
 
 
@@ -192,14 +195,14 @@ for (vector<char>::iterator j = cvec.begin() ; j != cvec.end() ; ++j)
 
 
 sz = signal.size() ; 
-long int *output = new long int[sz] ;
+char *output = new char[sz] ;
 int kk = 0 ;
 // write vibration signal to vibsig.txt - debugging
 // convert to array of ints for output to java
 for (vector<long>::iterator j = signal.begin() ; j != signal.end() ; ++j) 
 {
  //   vibsig << *j << endl ; 
-    output[kk] = static_cast<int>(*j) ; 
+    output[kk] = static_cast<char>(*j) ;
   //  cout << output[kk] << endl ; 
     kk++ ;
 }
@@ -207,7 +210,7 @@ for (vector<long>::iterator j = signal.begin() ; j != signal.end() ; ++j)
 //mcode.close() ; 
 //vibsig.close() ; 
 
-return output ; 
+return output;
 }
 
 char makeupper(char input)  // if input is lower case 
@@ -761,17 +764,17 @@ int lp = 7*unit ; // inter-word pause
 
 // c code
 extern "C" {
-    // translate and return the message 
-    // jlong[]
-    // path below not right, needs to be adjusted 
-    jlongArray Java_com_ec_Morsms_smsreceiver_trans( JNIEnv * env, jobject obj, jstring msg_in, jint unit_in)
+    jstring Java_com_ec_Morsms_smsreceiver_trans( JNIEnv * env, jobject obj, jstring msg_in, jint unit_in)
 
     {
-         string msg = msg_in ;
+    	 const char * msg= (env)->GetStringUTFChars(msg_in,NULL);
+         char * msg_c;
+         strcpy(msg_c, msg);
          int unit = unit_in ; 
-         return *translate(msg,unit) ; 
+         env->ReleaseStringUTFChars(msg_in,msg);
+         // return *translate(msg_c,unit) ;
+         return env->NewStringUTF(translate(msg_c,unit));
     } 
-
 }
 
 
