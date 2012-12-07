@@ -45,7 +45,7 @@ vector<char> cvec ; // vector of translatable characters
 vector<long> signal ; // vibration signal 
 //signal.push_back (0) ; // first entry is 0 (play immediately) 
 // pause for four seconds 
-signal.push_back (4000) ; // first entry is 0 (play immediately) 
+signal.push_back (4000) ; // first entry is 4000 (pause for four seconds) 
 vector<string> mvec ; // morse code symbols
 int txtlen ; // length of txt message
 char ltr ; // current letter
