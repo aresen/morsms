@@ -764,7 +764,7 @@ extern "C" {
     // translate and return the message 
     jlong[]
     // path below not right, needs to be adjusted 
-    Java_MainActivity_src_smsreceiver_trans( JNIEnv * env, jobject obj, jstring msg_in, jint unit_in) 
+    Java_com_ec_Morsms_smsreceiver_trans( JNIEnv * env, jobject obj, jstring msg_in, jint unit_in) 
 
     {
          string msg = msg_in ; 

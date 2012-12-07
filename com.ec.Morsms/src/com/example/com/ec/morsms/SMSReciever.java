@@ -9,6 +9,11 @@ import android.widget.Toast;
 
 public class SMSReciever extends BroadcastReceiver {
 
+    static {
+    	System.loadLibrary("morse");
+    }
+    
+    public native long[] translate();
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		// TODO Auto-generated method stub
