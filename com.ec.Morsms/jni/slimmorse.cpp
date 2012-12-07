@@ -1,11 +1,11 @@
 #include<jni.h>
-//#include<iostream>
 #include<string.h>
 #include<cstring>
 #include<vector>
-#include<fstream>
 #include<stdlib.h>
 #include<sstream> 
+//#include<iostream> // DEBUGGING
+//#include<fstream> // DEBUGGING
 
 using namespace std ; 
 
@@ -13,10 +13,9 @@ using namespace std ;
 
 char makeupper(char input) ; // convert lower to upper case 
 void morse(char input, vector<string> &vec) ; // morse symbol
-void sigdur(char input, vector<long> &vec, int unit) ; // signal duration
-static int sz ; //ending array size
+void sigdur(char input, vector<int> &vec, int unit) ; // signal duration
+string msg; // global string from java jstring
 
-string msg;
 int main() {
 return 0 ; 
 }  // nothing to see here
@@ -39,18 +38,23 @@ char * translate( string msg , int unit)
 // only print single spaces between words  
 // translate parsed txtmessage to signal duration and morse symbols
 // look through most common letters first
+// convert the string to an array of ints, then to an array of individual characters 
+
+// DEBUGGING
 // output two kinds of files
 // 1. morse translation : vector<string> mvec -> (mcode.txt) 
-// 2. pattern for android  : vector<long> signal -> (vibsig.txt) 
+// 2. pattern for android  : vector<int> signal -> (vibsig.txt) 
 
 
-//string msg ; // text message input
+//string msg ; // text message input // DEBUGGING
 vector<char> cvec ; // vector of translatable characters 
-vector<long> signal ; // vibration signal 
+vector<int> signal ; // vibration signal 
 //signal.push_back (0) ; // first entry is 0 (play immediately) 
+
 // pause for four seconds 
 signal.push_back (4000) ; // first entry is 4000 (pause for four seconds) 
-vector<string> mvec ; // morse code symbols
+
+//vector<string> mvec ; // morse code symbols // DEBUGGING
 int txtlen ; // length of txt message
 char ltr ; // current letter
 int index = 0 ; // for counting index of cvec
@@ -58,7 +62,9 @@ bool pcheck = 0 ; // check if a space has been pushed
 bool empty = 1 ; // check if the message is has no translatable content  
 int startindex ; // index where the phrase begins 
 
+//  DEBUGGING
 // open output text files 
+
 //ofstream mcode ;
 //ofstream vibsig ;
 //mcode.open("mcode.txt", ios::trunc) ; 
@@ -69,14 +75,17 @@ int startindex ; // index where the phrase begins
 //getline(cin,msg) ; 
 //cout << "Input message -> " << msg << endl ; 
 //cout << "Length of message is " << msg.length() << " characters\n" ; 
+
 txtlen = msg.length() ; 
 
+//  DEBUGGING
 //changed to input parameter 
-//const int unit = 60 ; // ms
+//int unit = 60 ; // ms
 //int unit ;
 //cout << "Enter the duration of a short ON (ms)\n" ;
 //cin >> unit ;
 //cout << "\n" ; 
+
 int mp = 3*unit ; // only medium and long pause used in main, the rest are defined in sigdur 
 int lp = 7*unit ; 
 
@@ -149,10 +158,10 @@ for (int i = 0 ; i < txtlen ; i++)
 
 for (vector<char>::iterator j = cvec.begin() ; j != cvec.end() ; ++j) 
 {
-  // cout << "char # " << index << " value: " << *j << endl ;
+  // cout << "char # " << index << " value: " << *j << endl ; // DEBUGGING
 
 
-  morse(*j,mvec) ; // convert to morse symbols
+  //morse(*j,mvec) ; // convert to morse symbols // DEBUGGING
   sigdur(*j,signal,unit) ; // convert to vibration on / off durations 
   // after index 0 , odd indices are ON and even are OFF 
 
@@ -176,42 +185,38 @@ for (vector<char>::iterator j = cvec.begin() ; j != cvec.end() ; ++j)
      signal.push_back (lp) ; // end with a long pause 
   }
 
-
+// DEBUGGING
 // write morse symbols to mcode.txt
 //for (vector<string>::iterator j = mvec.begin() ; j != mvec.end() ; ++j) 
 //{
-//    mcode << *j << endl ; 
+//    mcode << *j << endl ; // print to a file 
 //    // print code to screen ( for debugging ) 
 //    if ( *j == " " ) 
 //    {
-//      cout << *j << "   **     " ; 
+//      cout << *j << "   **     " ; // inter-word symbol 
 //    } 
 //    else 
 //    {
-//      cout << *j << " & " ; 
+//      cout << *j << " & " ;  // inter-letter symbol 
 //    }
 //    //
 //}
 //    cout << "\n" ; 
 
 
-sz = signal.size() ; 
-//char *output = new char[sz] ;
-//int kk = 0 ;
-// write vibration signal to vibsig.txt - debugging
-// convert to array of ints for output to java
+// write vibration signal to vibsig.txt //  DEBUGGING
+// convert to array of chars for output to java
+
 string pstring ;
-int pint ; 
 stringstream out ; 
 vector<char> charvec ;
-for (vector<long>::iterator j = signal.begin() ; j != signal.end() ; ++j) 
+for (vector<int>::iterator j = signal.begin() ; j != signal.end() ; ++j) 
 {
- //   vibsig << *j << endl ; 
- //   output[kk] = static_cast<char>(*j) ;
-  //  cout << output[kk] << endl ; 
-  //  kk++ ;
-      pint = static_cast<int>(*j) ; 
-      out << pint ; 
+      // DEBUGGING
+      //   vibsig << *j << endl ; // for printing to a file 
+
+      // convert from int to individual characters
+      out << (*j) ; 
       pstring = out.str() ; 
       out.str(string()) ; // clear the string stream
       
@@ -224,9 +229,11 @@ for (vector<long>::iterator j = signal.begin() ; j != signal.end() ; ++j)
 
 }
 
+// DEBUGGING
 //mcode.close() ; 
 //vibsig.close() ; 
 
+// put charvec into a cstring
 char *output = new char[charvec.size()] ;
 int kk = 0 ; 
 for (vector<char>::iterator j = cvec.begin() ; j != cvec.end() ; ++j) 
@@ -235,7 +242,7 @@ for (vector<char>::iterator j = cvec.begin() ; j != cvec.end() ; ++j)
     kk++ ; 
 } 
 
-return output;
+return output; // return to java 
 }
 
 char makeupper(char input)  // if input is lower case 
@@ -245,161 +252,161 @@ char makeupper(char input)  // if input is lower case
   return converted ; 
 }
 
+// DEBUGGING
+//void morse(char input, vector<string> &vec)  // return morse code symbol
+//{
+//
+//     if (input == 'E') 
+//     {
+//        vec.push_back (".") ;
+//     } 
+//     else if (input == 'T') 
+//     {
+//        vec.push_back ("-")  ;   
+//     }
+//     else if (input == 'A') 
+//     {
+//        vec.push_back (". -") ;     
+//     }
+//     else if (input == 'O') 
+//     {
+//        vec.push_back ("- - -") ;     
+//     }
+//     else if (input == 'I') 
+//     {
+//        vec.push_back (". .") ; 
+//     }
+//     else if (input == 'N') 
+//     {
+//        vec.push_back ("- .") ;   
+//     }
+//     else if (input == 'S') 
+//     {
+//        vec.push_back (". . .") ;     
+//     }
+//     else if (input == 'H') 
+//     {
+//        vec.push_back (". . . .") ;     
+//     }
+//     else if (static_cast<int>(input) ==  32)  // space character 
+//     {
+//        vec.push_back (" ") ;    
+//     }
+//     else if (input == 'R') 
+//     {
+//        vec.push_back (". - .") ;     
+//     }
+//     else if (input == 'D') 
+//     {
+//        vec.push_back ("- . .") ;    
+//     }
+//     else if (input == 'L') 
+//     {
+//        vec.push_back (". - . .") ;     
+//     }
+//     else if (input == 'C') 
+//     {
+//        vec.push_back ("- . - .") ;   
+//     }
+//     else if (input == 'U') 
+//     {
+//        vec.push_back (". . -") ;    
+//     }
+//     else if (input == 'M') 
+//     {
+//        vec.push_back ("- -") ;    
+//     }
+//     else if (input == 'W') 
+//     {
+//        vec.push_back (". - -") ;     
+//     }
+//     else if (input == 'F') 
+//     {
+//        vec.push_back (". . - .") ;     
+//     }
+//     else if (input == 'G') 
+//     {
+//        vec.push_back ("- - .") ;    
+//     }
+//     else if (input == 'Y') 
+//     {
+//        vec.push_back ("- . - -") ;     
+//     }
+//     else if (input == 'P') 
+//     {
+//        vec.push_back (". - - .") ;   
+//     }
+//     else if (input == 'B') 
+//     {
+//        vec.push_back ("- . . .") ;    
+//     }
+//     else if (input == 'V') 
+//     {
+//        vec.push_back (". . . -") ;    
+//     }
+//     else if (input == 'K') 
+//     {
+//        vec.push_back ("- . -") ;    
+//     }
+//     else if (input == 'J') 
+//     {
+//        vec.push_back (". - - -") ;    
+//     }
+//     else if (input == 'X') 
+//     {
+//        vec.push_back ("- . . -") ;    
+//     }
+//     else if (input == 'Q') 
+//     {
+//        vec.push_back ("- - . -") ;    
+//     }
+//     else if (input == 'Z') 
+//     {
+//        vec.push_back ("- - . .") ;    
+//     }
+//     else if (input == '0') 
+//     {
+//        vec.push_back ("- - - - -") ;    
+//     }
+//     else if (input == '1') 
+//     {
+//        vec.push_back (". - - - -") ;    
+//     }
+//     else if (input == '2') 
+//     {
+//        vec.push_back (". . - - -") ;    
+//     }
+//     else if (input == '3') 
+//     {
+//        vec.push_back (". . . - -") ;    
+//     }
+//     else if (input == '4') 
+//     {
+//        vec.push_back (". . . . -") ;    
+//     }
+//     else if (input == '5') 
+//     {
+//        vec.push_back (". . . . .") ;    
+//     }
+//     else if (input == '6') 
+//     {
+//        vec.push_back ("- . . . .") ;    
+//     }
+//     else if (input == '7') 
+//     {
+//        vec.push_back ("- - . . .") ;    
+//     }
+//     else if (input == '8') 
+//     {
+//        vec.push_back ("- - - . .") ;    
+//     }
+//     else if (input == '9') 
+//     {
+//        vec.push_back ("- - - - .") ;    
+//     }
+//} 
 
-void morse(char input, vector<string> &vec)  // return morse code symbol
-{
-
-     if (input == 'E') 
-     {
-        vec.push_back (".") ;
-     } 
-     else if (input == 'T') 
-     {
-        vec.push_back ("-")  ;   
-     }
-     else if (input == 'A') 
-     {
-        vec.push_back (". -") ;     
-     }
-     else if (input == 'O') 
-     {
-        vec.push_back ("- - -") ;     
-     }
-     else if (input == 'I') 
-     {
-        vec.push_back (". .") ; 
-     }
-     else if (input == 'N') 
-     {
-        vec.push_back ("- .") ;   
-     }
-     else if (input == 'S') 
-     {
-        vec.push_back (". . .") ;     
-     }
-     else if (input == 'H') 
-     {
-        vec.push_back (". . . .") ;     
-     }
-     else if (static_cast<int>(input) ==  32)  // space character 
-     {
-        vec.push_back (" ") ;    
-     }
-     else if (input == 'R') 
-     {
-        vec.push_back (". - .") ;     
-     }
-     else if (input == 'D') 
-     {
-        vec.push_back ("- . .") ;    
-     }
-     else if (input == 'L') 
-     {
-        vec.push_back (". - . .") ;     
-     }
-     else if (input == 'C') 
-     {
-        vec.push_back ("- . - .") ;   
-     }
-     else if (input == 'U') 
-     {
-        vec.push_back (". . -") ;    
-     }
-     else if (input == 'M') 
-     {
-        vec.push_back ("- -") ;    
-     }
-     else if (input == 'W') 
-     {
-        vec.push_back (". - -") ;     
-     }
-     else if (input == 'F') 
-     {
-        vec.push_back (". . - .") ;     
-     }
-     else if (input == 'G') 
-     {
-        vec.push_back ("- - .") ;    
-     }
-     else if (input == 'Y') 
-     {
-        vec.push_back ("- . - -") ;     
-     }
-     else if (input == 'P') 
-     {
-        vec.push_back (". - - .") ;   
-     }
-     else if (input == 'B') 
-     {
-        vec.push_back ("- . . .") ;    
-     }
-     else if (input == 'V') 
-     {
-        vec.push_back (". . . -") ;    
-     }
-     else if (input == 'K') 
-     {
-        vec.push_back ("- . -") ;    
-     }
-     else if (input == 'J') 
-     {
-        vec.push_back (". - - -") ;    
-     }
-     else if (input == 'X') 
-     {
-        vec.push_back ("- . . -") ;    
-     }
-     else if (input == 'Q') 
-     {
-        vec.push_back ("- - . -") ;    
-     }
-     else if (input == 'Z') 
-     {
-        vec.push_back ("- - . .") ;    
-     }
-     else if (input == '0') 
-     {
-        vec.push_back ("- - - - -") ;    
-     }
-     else if (input == '1') 
-     {
-        vec.push_back (". - - - -") ;    
-     }
-     else if (input == '2') 
-     {
-        vec.push_back (". . - - -") ;    
-     }
-     else if (input == '3') 
-     {
-        vec.push_back (". . . - -") ;    
-     }
-     else if (input == '4') 
-     {
-        vec.push_back (". . . . -") ;    
-     }
-     else if (input == '5') 
-     {
-        vec.push_back (". . . . .") ;    
-     }
-     else if (input == '6') 
-     {
-        vec.push_back ("- . . . .") ;    
-     }
-     else if (input == '7') 
-     {
-        vec.push_back ("- - . . .") ;    
-     }
-     else if (input == '8') 
-     {
-        vec.push_back ("- - - . .") ;    
-     }
-     else if (input == '9') 
-     {
-        vec.push_back ("- - - - .") ;    
-     }
-} 
-
-void sigdur(char input, vector<long> &vec, int unit)  // return 
+void sigdur(char input, vector<int> &vec, int unit)  // return vibration signal for a letter
 {
 
 int dot = 1*unit ; // "."
@@ -797,14 +804,8 @@ extern "C" {
          strcpy(msg_c, msg);
          int unit = unit_in ; 
          env->ReleaseStringUTFChars(msg_in,msg);
-         // return *translate(msg_c,unit) ;
          return env->NewStringUTF(translate(msg_c,unit));
     } 
 }
 
 
-// delete later ? 
-//int returnsize()  
-//{
-//  return sz ; 
-//} 
