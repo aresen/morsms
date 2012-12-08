@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import com.ec.morsms.R;
 
 public class Settings extends Activity implements SeekBar.OnSeekBarChangeListener {
 

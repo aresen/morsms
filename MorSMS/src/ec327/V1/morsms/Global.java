@@ -1,6 +1,7 @@
 package ec327.V1.morsms;
 //hello
 import android.app.Application;
+import com.ec.morsms.R;
 
 public class Global extends Application {
 	

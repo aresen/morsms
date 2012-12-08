@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.os.Vibrator;
 import android.widget.Toast;
+import com.ec.morsms.R;
 
 public class VibrationService extends Service {
 	
