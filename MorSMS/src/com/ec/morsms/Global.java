@@ -1,4 +1,4 @@
-package ec327.V1.morsms;
+package com.ec.morsms;
 //hello
 import android.app.Application;
 import com.ec.morsms.R;

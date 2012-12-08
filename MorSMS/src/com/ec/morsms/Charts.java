@@ -1,6 +1,4 @@
-package ec327.V1.morsms;
-
-
+package com.ec.morsms;
 
 import android.os.Bundle;
 import android.os.Vibrator;
