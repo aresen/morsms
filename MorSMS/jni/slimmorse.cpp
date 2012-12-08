@@ -240,6 +240,12 @@ for (vector<char>::iterator j = cvec.begin() ; j != cvec.end() ; ++j)
 {
     output[kk] = (*j) ; 
     kk++ ; 
+
+    if (kk == (charvec.size() + 1) ) 
+    {
+       output[kk] = '\0' ; // end with a null terminator
+    }
+
 } 
 
 return output; // return to java 
