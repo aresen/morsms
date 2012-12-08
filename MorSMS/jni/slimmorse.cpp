@@ -234,7 +234,7 @@ for (vector<int>::iterator j = signal.begin() ; j != signal.end() ; ++j)
 //vibsig.close() ; 
 
 // put charvec into a cstring
-char *output = new char[charvec.size()] ;
+char *output = new char[(charvec.size() + 1)] ;
 int kk = 0 ; 
 for (vector<char>::iterator j = cvec.begin() ; j != cvec.end() ; ++j) 
 {
