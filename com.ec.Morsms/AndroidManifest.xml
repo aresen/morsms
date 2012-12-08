@@ -11,48 +11,56 @@
     
     
     <application
-		android:name="com.ec.Morsms.Global"
+		android:name="com.ec.morsms.Global"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <receiver android:name="com.ec.Morsms.smsreciever">
+        <receiver android:name="com.ec.morsms.smsreciever">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
 				<action android:name="my.action.string" />
             </intent-filter>
         </receiver> 
-		<service android:name="com.ec.Morsms.VibrationService">
+		<service android:name="com.ec.morsms.VibrationService">
 			</service>
-        
+        <activity
+            android:name="com.ec.morsms.MainActivity"
+            android:label="@string/title_activity_main" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 		<activity
-            android:name="com.ec.Morsms.Default"
+            android:name="com.ec.morsms.Default"
             android:label="@string/title_activity_default" >
             android:screenOrientation="portrait"
             android:configChanges="orientation"
         </activity>
         <activity
-            android:name="com.ec.Morsms.Charts"
+            android:name="com.ec.morsms.Charts"
             android:label="@string/title_activity_charts" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="Default" />
         </activity>
         <activity
-            android:name="com.ec.Morsms.Info"
+            android:name="com.ec.morsms.Info"
             android:label="@string/title_activity_info" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="Default" />
         </activity>
         <activity
-            android:name="com.ec.Morsms.Settings"
+            android:name="com.ec.morsms.Settings"
             android:label="@string/title_activity_settings" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="Default" />
         </activity>
         <activity
-            android:name="com.ec.Morsms.ChartInfo"
+            android:name="com.ec.morsms.ChartInfo"
             android:label="@string/title_activity_chart_info" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

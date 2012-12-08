@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.telephony.SmsMessage;
 import android.widget.Toast;
-import com.ec.morsms.R;
 
 public class smsreceiver extends BroadcastReceiver {
 
