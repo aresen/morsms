@@ -1,4 +1,4 @@
-package ec327.V1.morsms;
+package com.ec.morsms;
 
 import android.app.Service;
 import android.content.Context;

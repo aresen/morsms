@@ -12,23 +12,23 @@
         android:targetSdkVersion="15" />
 
     <application
-        android:name="ec327.V1.morsms.Global"
+        android:name="com.ec.morsms.Global"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         
-        <receiver android:name="ec327.V1.morsms.smsreceiver" >
+        <receiver android:name="com.ec.morsms.smsreceiver" >
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
                 <action android:name="my.action.string" />
             </intent-filter>
         </receiver>
         
-		<service android:name="ec327.V1.morsms.VibrationService">
+		<service android:name="com.ec.morsms.VibrationService">
         </service>
         
         <activity
-            android:name="ec327.V1.morsms.Default"
+            android:name="com.ec.morsms.Default"
             android:label="@string/title_activity_default" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,7 +39,7 @@
         </activity>
         
         <activity
-            android:name="ec327.V1.morsms.Charts"
+            android:name="com.ec.morsms.Charts"
             android:label="@string/title_activity_charts" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -47,7 +47,7 @@
         </activity>
         
         <activity
-            android:name="ec327.V1.morsms.Info"
+            android:name="com.ec.morsms.Info"
             android:label="@string/title_activity_info" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -55,7 +55,7 @@
         </activity>
         
         <activity
-            android:name="ec327.V1.morsms.Settings"
+            android:name="com.ec.morsms.Settings"
             android:label="@string/title_activity_settings" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
