@@ -1,0 +1,91 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/defualt"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#000000" >
+	
+    
+    <RelativeLayout
+        android:id="@+id/splashLayout"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+     	 android:background="#FFFFFF"
+    >
+
+        <ImageView
+        android:id="@+id/logoImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/logomain">
+        </ImageView>
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7" >
+        
+        <ImageView
+	        android:id="@+id/imageView1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:onClick="buttonPress"
+	        android:contentDescription="Press to enable message vibration"
+	        android:layout_centerHorizontal="true"
+	        android:layout_centerVertical="true"
+	        android:hapticFeedbackEnabled="true"
+	        android:src="@drawable/disabled" />
+        
+    </RelativeLayout>
+	
+    
+
+    <Button
+        android:id="@+id/ToCharts"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:onClick="toCharts"
+        android:layout_weight="1"
+        android:textColor="#FFFFFF"
+        android:text="@string/chartB" />
+    
+    <Button
+        android:id="@+id/ToGame"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:onClick="toGame"
+        android:layout_weight="1"
+        android:textColor="#FFFFFF"
+        android:text="Test your morse code" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <Button
+            android:id="@+id/toSettings"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="toSettings"
+            android:textColor="#FFFFFF"
+            android:text="@string/settingB" />
+
+        <Button
+            android:id="@+id/toInfo"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:onClick="toInfo"
+            android:textColor="#FFFFFF"
+            android:text="@string/infoB" />
+    </LinearLayout>
+	
+    
+    
+</LinearLayout>

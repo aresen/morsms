@@ -1,0 +1,35 @@
+<resources>
+
+    <string name="app_name">MorSMS</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MorSMS</string>
+    <string name="title_activity_default">MorSMS</string>
+    <string name="speedTxt">25</string>
+    <string name="speedSettingView">Vibration unit lenght</string>
+    <string name="toCharts">View Morse Code Charts</string>
+    <string name="title_activity_charts">Morse Code Charts</string>
+    <string name="settingB">Settings</string>
+    <string name="chartB">Morse Code Charts</string>
+    <string name="infoB">Info</string>
+    <string name="title_activity_info">Information</string>
+    <string name="Info1">This app is designed to take an incoming text message and vibrate 
+        the received message according to morse code.</string>
+    <string name="Info2">In morse code you have letters, words, and sentences. Within each letter,
+         there are dots and dashes (short and long pulses).\n\nA unit of time, equal to one dot,
+         is defined in milliseconds in the settings page.\n\nWhere the length of a dot
+         is one unit of time, a dash is worth three units of time.\n\nBetween each dash and dot
+         in a letter there  is exactly one unit of silence.\n\nBetween letters, there are 3 units of
+         silence.\n\nBetween words there are seven units of silence.</string>
+    <string name="Info3">Developed by\n\tNeladri Bose, Dan Ciambrone, Patrick W. Crawford, 
+        	Quentin Li, Tom Seidl\n</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="enable">Enable/Disable Text Message Vibration</string>
+    <string name="charts_text">\nTap to vibrate letter\n</string>
+    <string name="title_section3">Section 3</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section1">Section 1</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_chart_info">Charts Info</string>
+    <string name="barInfo">\nWhat MorSMS does and how to use it</string>
+
+</resources>
