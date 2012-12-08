@@ -16,5 +16,5 @@ gen/
 local.properties
 
 #repo specific
-com.ec.Morsms/bin
-com.ec.Morsms/gen
+MorSMS/bin
+MorSMS/gen
