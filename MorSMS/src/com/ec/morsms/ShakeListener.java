@@ -12,7 +12,7 @@ import java.lang.UnsupportedOperationException;
 
 public class ShakeListener implements SensorListener 
 {
-  private static final int FORCE_THRESHOLD = 500;
+  private static final int FORCE_THRESHOLD = 3000;
   private static final int TIME_THRESHOLD = 100;
   private static final int SHAKE_TIMEOUT = 500;
   private static final int SHAKE_DURATION = 1000;
