@@ -59,7 +59,7 @@ public class Default extends Activity{
 	    	  Intent newIntent=new Intent(context,VibrationService.class);
 	          newIntent.putExtra("sms","");
 	          //Toast.makeText(context, "wertyu", Toast.LENGTH_LONG).show(); //TS
-	          context.startService(newIntent);	//should start new service or something  
+	          context.startService(newIntent);
 	      }
 	    });
         
@@ -183,10 +183,10 @@ public class Default extends Activity{
         startActivity(intent);
     }
     
-  //what pressing the "Info" button will do, open info activity
+  //what pressing the "Morse code Game" button will do, open info activity
     public void toGame(View view) {
         //change to settings.class
-    	Intent intent = new Intent(this, Info.class);
+    	Intent intent = new Intent(this, Game.class);
         startActivity(intent);
     }
     

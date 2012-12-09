@@ -60,7 +60,7 @@
         android:onClick="toGame"
         android:layout_weight="1"
         android:textColor="#FFFFFF"
-        android:text="Test your morse code" />
+        android:text="Morse code self-test" />
 
     <LinearLayout
         android:layout_width="match_parent"

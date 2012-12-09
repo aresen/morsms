@@ -46,6 +46,8 @@ public class VibrationService extends Service {
     	((Global) this.getApplication()).setLast(sms);
     	
     	
+    	//Toast.makeText(this, sms, Toast.LENGTH_LONG).show();
+    	
     	// get global variables maximum character and unit speed
         int unit = ((Global) this.getApplication()).getUnitSpeed();
         int maxChar = ((Global) this.getApplication()).getMaxChar();
@@ -62,41 +64,38 @@ public class VibrationService extends Service {
         
         
         
-        String backend_str = trans(sms,unit);
+        String backend_str = trans(sms,unit);		// ***** SWITCH THE COMMENTED LINES HERE FOR PROPER APP
         //String backend_str = "100\n100\n300\n100\n100\n300\n100\n500\n100";
         
         
-        //Toast.makeText(this, backend_str, Toast.LENGTH_LONG).show(); // ts debug
-        // this works!!
+        Toast.makeText(this, backend_str, Toast.LENGTH_LONG).show();
         
-        // fix this --> the length of backend_str is the # of characters
-        // not the number of 100, 300, 100 ... groups 
-        int newMax;
-        if (backend_str.length() > maxChar)
-        	newMax = maxChar;
-        else newMax = backend_str.length();
         
+        
+        //newMax = backend_str.length();
         //convert input string to array of integers
-        String[] backArray = backend_str.split("\\r?\\n");
+        String[] backArray = backend_str.split("\\t?\\n");
+        //String[] lengthInput = backend_str.split("\t");
+        
+        int newMax;
+        
+        if (maxChar==0)
+        	newMax = backArray.length;
+        else if (backArray.length > maxChar*2)	//multiply by two, since vibrator has on AND off signals.
+        	newMax = maxChar*2;
+        else newMax = backArray.length;
+        
         long[] backArrayLong = new long [newMax]; 
-        //long[] backArrayLong = new long [backArray.length]; // -TS
+        
         for (int i=0; i< newMax; i++){
         //for (int i=0; i< backArray.length; i++){ -TS
         	backArrayLong[i] = Long.valueOf(backArray[i]).longValue();
         }
         
-        Toast.makeText(this, backend_str, Toast.LENGTH_LONG).show(); //TS
-        
-        
-        //truncate to proper number of characters if too long
-        for (int i=maxChar; i < backArrayLong.length; i++)
-        	backArrayLong[i] = 0;	//can we pass in zero values to vibrator?
-        
         
         //vibrate this pattern once.
         Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        //vibe.vibrate(backArrayLong,-1);	//-1 is for no repeats
-        vibe.vibrate(200);
+        vibe.vibrate(backArrayLong,-1);	//-1 is for no repeats
         
         //backArrayLong
     }

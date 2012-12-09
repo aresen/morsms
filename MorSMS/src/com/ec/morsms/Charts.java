@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -61,6 +62,13 @@ public class Charts extends Activity {
 ;
 
 	                String backend_input = Character.toString(letter);
+	                
+	                Context context = getBaseContext();
+	  	    	  	Intent newIntent=new Intent(context,VibrationService.class);
+	  	    	  	newIntent.putExtra("sms",backend_input);
+	  	    	  	context.startService(newIntent);
+	                
+	                /*
 	                //normally truncate string based on maxChar; no need here though, as only 1 letter!
 	                
 	                /////
@@ -85,6 +93,7 @@ public class Charts extends Activity {
 	                
 	                //vibrate this pattern once.
 	                vibe.vibrate(backArrayLong,-1);	//-1 is for no repeats
+	                */
 	            }
 	        });
 	    }
@@ -144,8 +153,7 @@ public class Charts extends Activity {
 	                R.drawable.alph29,	R.drawable.alph30,
 	                R.drawable.alph31,	R.drawable.alph32,
 	                R.drawable.alph33,	R.drawable.alph34,
-	                R.drawable.alph35,	R.drawable.alph36,
-	                R.drawable.alph37
+	                R.drawable.alph35,	R.drawable.alph36
 	        };
 	    }
 	    

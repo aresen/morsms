@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:background="#212021" >
+
+	<LinearLayout
+	    xmlns:android="http://schemas.android.com/apk/res/android"
+	    xmlns:tools="http://schemas.android.com/tools"
+	    android:layout_width="match_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight="4"
+	    android:background="#000000"
+	    android:orientation="vertical"
+	    android:padding="10dp" >
+
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/game1"
+	        android:textColor="#FFFFFF"
+	        tools:context=".Info" />
+
+	    <Space
+	        android:layout_width="match_parent"
+	        android:layout_height="40dp" />
+
+	    <Button
+	        android:id="@+id/button1"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:textColor="#FFFFFF"
+	        android:text="Get new word" />
+	    
+	    <Space
+	        android:layout_width="match_parent"
+	        android:layout_height="40dp" />
+
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" >
+
+	        <EditText
+	            android:id="@+id/editText1"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:textColor="#FFFFFF"
+	            android:ems="10" >
+
+	            <requestFocus />
+	        </EditText>
+
+	        <Button
+	            android:id="@+id/button2"
+	            style="?android:attr/buttonStyleSmall"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:textColor="#FFFFFF"
+	            android:text="Guess" />
+
+	    </LinearLayout>
+	    
+	    <Space
+	        android:layout_width="match_parent"
+	        android:layout_height="40dp" />
+	    
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/game2"
+	        android:textColor="#FFFFFF"
+	        tools:context=".Info" />
+
+	    
+	    
+	    
+	</LinearLayout>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp" >
+		
+        <TextView
+	        android:id="@+id/orient"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="center"
+	        android:textColor="#FFFFFF"
+	        android:text="@string/gamebar" />
+        
+    </RelativeLayout>
+    
+    
+        
+</LinearLayout>

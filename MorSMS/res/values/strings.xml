@@ -31,5 +31,10 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_chart_info">Charts Info</string>
     <string name="barInfo">\nWhat MorSMS does and how to use it</string>
+    <string name="title_activity_game">Game</string>
+    <string name="game1">Press the button to get a set a new word, then try to enter the correct
+        word in the space below.</string>
+    <string name="game2">Don\'t forget you can check the chart sheets</string>
+    <string name="gamebar">\nTest your morse code!\n</string>
 
 </resources>

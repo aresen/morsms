@@ -2,27 +2,30 @@
     package="com.ec.morsms"
     android:versionCode="1"
     android:versionName="1.0" >
+
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="15" />
+
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
-    
-    
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
-		android:name="com.ec.morsms.Global"
+        android:name="com.ec.morsms.Global"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <receiver android:name="com.ec.morsms.smsreceiver">
+        <receiver android:name="com.ec.morsms.smsreceiver" >
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
-				<action android:name="my.action.string" />
+                <action android:name="my.action.string" />
             </intent-filter>
-        </receiver> 
-		<service android:name="com.ec.morsms.VibrationService">
-			</service>
-		<activity
+        </receiver>
+
+        <service android:name="com.ec.morsms.VibrationService" >
+        </service>
+
+        <activity
             android:name="com.ec.morsms.Default"
             android:label="@string/title_activity_default" >
             <intent-filter>
@@ -50,6 +53,13 @@
         <activity
             android:name="com.ec.morsms.Settings"
             android:label="@string/title_activity_settings" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="Default" />
+        </activity>
+        <activity
+            android:name=".Game"
+            android:label="@string/title_activity_game" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="Default" />

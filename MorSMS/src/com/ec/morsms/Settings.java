@@ -45,7 +45,7 @@ public class Settings extends Activity implements SeekBar.OnSeekBarChangeListene
         
         //text for macChar seekbar
         int mc = ((Global) this.getApplication()).getMaxChar();
-        messageLength.setText("Maximum character input: " + mc + " characters\n(zero is no limit)");
+        messageLength.setText("Maximum number of vibrations: \n\t" + mc + " (zero is no limit)");
         charMax.setProgress(mc);
         
         //General message saying current status of morSMS message receiver
