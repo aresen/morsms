@@ -13,7 +13,7 @@ public class VibrationService extends Service {
 		System.loadLibrary("morse");
 	}
 	
-	public native String trans(String message_in, int unit_in);
+	public native String trans(String message_in, int unit_in, int delay_in);
 	
 	@Override
     public IBinder onBind(Intent arg0) {

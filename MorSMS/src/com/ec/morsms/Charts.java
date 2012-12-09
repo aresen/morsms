@@ -19,7 +19,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.ec.morsms.R;
 
 public class Charts extends Activity {
-		
+	
+	static {
+		System.loadLibrary("morse");
+	}
+	
+	public native String trans(String message_in, int unit_in, int delay_in);
+	
 	//locally store global varaibles, can't access otherwise in adapter view
 	int unitSpeed;
     int maxChar;	//not really needed here..
@@ -59,14 +65,39 @@ public class Charts extends Activity {
 	                else if (position == 35) letter = '0';
 	                else
 	                	letter = (char)(position+23);
-;
+
 
 	                String backend_input = Character.toString(letter);
 	                
+	                /* Old: pass letter input to vibrationservice.java
 	                Context context = getBaseContext();
 	  	    	  	Intent newIntent=new Intent(context,VibrationService.class);
 	  	    	  	newIntent.putExtra("sms",backend_input);
 	  	    	  	context.startService(newIntent);
+	                */
+	                
+	                String backend_str = trans(backend_input,unitSpeed,200);
+	                
+	                
+	                
+	                //newMax = backend_str.length();
+	                //convert input string to array of integers
+	                String[] backArray = backend_str.split("\\t?\\n");
+	                //String[] lengthInput = backend_str.split("\t");
+	                
+	                long[] backArrayLong = new long [backArray.length]; 
+	                
+	                //for (int i=0; i< newMax; i++){
+	                for (int i=0; i< backArray.length; i++){ //-TS
+	                	backArrayLong[i] = Long.valueOf(backArray[i]).longValue();
+	                }
+	                
+	                
+	                //vibrate this pattern once.
+	                //Vibrator vibe1 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+	                vibe.vibrate(backArrayLong,-1);	//-1 is for no repeats
+	                
+	                
 	                
 	                /*
 	                //normally truncate string based on maxChar; no need here though, as only 1 letter!

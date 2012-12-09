@@ -843,6 +843,16 @@ extern "C" {
          delay = delay_in ; // input vibration delay 
     	 return env->NewStringUTF(translate()) ;
     } 
+
+    jstring Java_com_ec_morsms_Charts_trans( JNIEnv * env, jobject obj, jstring msg_in, jint unit_in, jint delay_in )
+
+        {
+        	 const char * ms= (env)->GetStringUTFChars(msg_in,NULL);
+        	 msg.assign(ms) ; // assign ms to string object
+        	 unit = unit_in ; // input vibration unit
+             delay = delay_in ; // input vibration delay
+        	 return env->NewStringUTF(translate()) ;
+        }
 }
 
 
