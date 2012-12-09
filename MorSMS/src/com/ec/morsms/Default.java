@@ -2,6 +2,7 @@ package com.ec.morsms;
 
 import android.app.Activity;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -13,12 +14,16 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
 import com.ec.morsms.R;
+
 
 public class Default extends Activity{
 	
 	//for splash screen
 	private Handler mHandler = new Handler();
+	private ShakeListener mShaker;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,19 @@ public class Default extends Activity{
         setButtonState();
         //ensure this activity stays vertical
         setOrientation();
+        
+        
+        mShaker = new ShakeListener(this);
+	    mShaker.setOnShakeListener(new ShakeListener.OnShakeListener () {
+	      public void onShake()
+	      {
+	    	  Context context = getBaseContext();
+	    	  Intent newIntent=new Intent(context,VibrationService.class);
+	          newIntent.putExtra("sms","");
+	          //Toast.makeText(context, "wertyu", Toast.LENGTH_LONG).show(); //TS
+	          context.startService(newIntent);	//should start new service or something  
+	      }
+	    });
         
     }
     

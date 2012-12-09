@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.os.Vibrator;
 import android.widget.Toast;
-import com.ec.morsms.R;
 
 public class VibrationService extends Service {
 	
@@ -41,6 +40,12 @@ public class VibrationService extends Service {
     	//get sms from broadcast intent
     	String sms=intent.getStringExtra("sms");
         
+    	if (sms==""){
+    		sms = ((Global) this.getApplication()).getLast();
+    	}
+    	((Global) this.getApplication()).setLast(sms);
+    	
+    	
     	// get global variables maximum character and unit speed
         int unit = ((Global) this.getApplication()).getUnitSpeed();
         int maxChar = ((Global) this.getApplication()).getMaxChar();
@@ -48,12 +53,18 @@ public class VibrationService extends Service {
         //for debugging, show message
         //Toast.makeText(this,  sms + unit + ", max " + maxChar, Toast.LENGTH_LONG).show();
 
-        //Toast.makeText(this, sms, Toast.LENGTH_LONG).show(); //TS
+        
+        
+        
         //do the string conversion etc stuff
         //BACK END STUFF HERE
         //String backend_str = "100\n100\n300\n100\n100\n300\n100\n500\n100";
         
+        
+        
         String backend_str = trans(sms,unit);
+        //String backend_str = "100\n100\n300\n100\n100\n300\n100\n500\n100";
+        
         
         //Toast.makeText(this, backend_str, Toast.LENGTH_LONG).show(); // ts debug
         // this works!!
@@ -73,7 +84,10 @@ public class VibrationService extends Service {
         //for (int i=0; i< backArray.length; i++){ -TS
         	backArrayLong[i] = Long.valueOf(backArray[i]).longValue();
         }
-
+        
+        Toast.makeText(this, backend_str, Toast.LENGTH_LONG).show(); //TS
+        
+        
         //truncate to proper number of characters if too long
         for (int i=maxChar; i < backArrayLong.length; i++)
         	backArrayLong[i] = 0;	//can we pass in zero values to vibrator?
@@ -81,8 +95,9 @@ public class VibrationService extends Service {
         
         //vibrate this pattern once.
         Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        vibe.vibrate(backArrayLong,-1);	//-1 is for no repeats
+        //vibe.vibrate(backArrayLong,-1);	//-1 is for no repeats
+        vibe.vibrate(200);
         
-        
+        //backArrayLong
     }
 }

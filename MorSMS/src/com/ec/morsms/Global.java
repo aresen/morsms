@@ -1,7 +1,6 @@
 package com.ec.morsms;
 //hello
 import android.app.Application;
-import com.ec.morsms.R;
 
 public class Global extends Application {
 	
@@ -11,6 +10,7 @@ public class Global extends Application {
     private int buttonState;	//whether message vibration is enabled or not
     private int maxChar;		//maximum number of characters input message
     private int runOnce;
+    private String last;
     //on create application, initialize things
     @Override
     public void onCreate() {
@@ -18,6 +18,7 @@ public class Global extends Application {
         unitSpeed = 300;
         buttonState = 0;
         maxChar = 0;	//0 means no maximum.. for now.
+        last = "sms";
         super.onCreate();
     }
     
@@ -25,7 +26,13 @@ public class Global extends Application {
     
     
   //global application variables gets/sets
+    public void setLast(String newStr){
+    	last = newStr;
+    }
     
+    public String getLast(){
+    	return last;
+    }
     
     public void setRun(){
     	runOnce = 1;
