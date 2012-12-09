@@ -46,15 +46,20 @@ public class VibrationService extends Service {
         int maxChar = ((Global) this.getApplication()).getMaxChar();
         
         //for debugging, show message
-        Toast.makeText(this,  sms + unit + ", max " + maxChar, Toast.LENGTH_LONG).show();
-        
+        //Toast.makeText(this,  sms + unit + ", max " + maxChar, Toast.LENGTH_LONG).show();
+
+        //Toast.makeText(this, sms, Toast.LENGTH_LONG).show(); //TS
         //do the string conversion etc stuff
         //BACK END STUFF HERE
         //String backend_str = "100\n100\n300\n100\n100\n300\n100\n500\n100";
         
         String backend_str = trans(sms,unit);
         
+        //Toast.makeText(this, backend_str, Toast.LENGTH_LONG).show(); // ts debug
+        // this works!!
         
+        // fix this --> the length of backend_str is the # of characters
+        // not the number of 100, 300, 100 ... groups 
         int newMax;
         if (backend_str.length() > maxChar)
         	newMax = maxChar;
@@ -62,14 +67,16 @@ public class VibrationService extends Service {
         
         //convert input string to array of integers
         String[] backArray = backend_str.split("\\r?\\n");
-        long[] backArrayLong = new long [newMax];
+        long[] backArrayLong = new long [newMax]; 
+        //long[] backArrayLong = new long [backArray.length]; // -TS
         for (int i=0; i< newMax; i++){
+        //for (int i=0; i< backArray.length; i++){ -TS
         	backArrayLong[i] = Long.valueOf(backArray[i]).longValue();
         }
 
         //truncate to proper number of characters if too long
-       // for (int i=maxChar; i < backArrayLong.length; i++)
-       // 	backArrayLong[i] = 0;	//can we pass in zero values to vibrator?
+        for (int i=maxChar; i < backArrayLong.length; i++)
+        	backArrayLong[i] = 0;	//can we pass in zero values to vibrator?
         
         
         //vibrate this pattern once.

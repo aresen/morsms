@@ -15,13 +15,11 @@ char makeupper(char input) ; // convert lower to upper case
 void morse(char input, vector<string> &vec) ; // morse symbol
 void sigdur(char input, vector<int> &vec, int unit) ; // signal duration
 string msg; // global string from java jstring
+int unit ; // vibration unit
+// static int sz ; // global size of return string // DEBUGGING
 
-int main() {
-return 0 ; 
-}  // nothing to see here
-
-
-char * translate( string msg , int unit)
+// function called from java
+char * translate()
 {
 
 
@@ -234,19 +232,16 @@ for (vector<int>::iterator j = signal.begin() ; j != signal.end() ; ++j)
 //vibsig.close() ; 
 
 // put charvec into a cstring
-char *output = new char[(charvec.size() + 1)] ;
+char *output = new char[( charvec.size() + 1 ) ] ;
 int kk = 0 ; 
-for (vector<char>::iterator j = cvec.begin() ; j != cvec.end() ; ++j) 
+for (vector<char>::iterator j = charvec.begin() ; j != charvec.end() ; ++j)
 {
     output[kk] = (*j) ; 
     kk++ ; 
+}
 
-    if (kk == (charvec.size() + 1) ) 
-    {
-       output[kk] = '\0' ; // end with a null terminator
-    }
-
-} 
+output[kk] = '\0' ; // end with null terminator
+//sz = kk ; // size of output character array // DEBUGGING
 
 return output; // return to java 
 }
@@ -800,18 +795,63 @@ int lp = 7*unit ; // inter-word pause
      }
 } 
 
+int main() {
+return 0 ;
+}  // nothing to see here
+
+// to debug as a c++ file, comment out jni.h , uncomment iostream.h,
+// uncomment the static int sz declaration ,
+// and uncomment the sz = kk line located near the end of the translate
+// function. Use the following main()
+
+//int main() {
+
+//string msg_in = "sos" ;
+//cout << "input message >>"  << msg_in << endl ;
+//int unit_in = 60 ;
+//char *outp = translate(msg_in , unit_in) ;
+
+//for ( int i = 0 ; i < sz ; i++ )
+//{
+//  cout << outp[i] << endl ;
+//}
+
+//return 0 ;
+//}
+
+
+
+
+
 // c code
 extern "C" {
-    jstring Java_com_ec_Morsms_smsreceiver_trans( JNIEnv * env, jobject obj, jstring msg_in, jint unit_in)
+    jstring Java_ec327_V1_morsms_VibrationService_trans( JNIEnv * env, jobject obj, jstring msg_in, jint unit_in)
 
     {
-    	 const char * msg= (env)->GetStringUTFChars(msg_in,NULL);
-         char * msg_c;
-         strcpy(msg_c, msg);
-         int unit = unit_in ; 
-         env->ReleaseStringUTFChars(msg_in,msg);
-         return env->NewStringUTF(translate(msg_c,unit));
+    	 //return env->NewStringUTF("Hello!!!!!!!"); // DEBUGGING
+    	 const char * ms= (env)->GetStringUTFChars(msg_in,NULL);
+    	 msg.assign(ms) ; // assign mg_in to string object
+    	 unit = unit_in ;
+    	 return env->NewStringUTF(translate()) ;
+
+    	 // some junk, some works
+         //char * msg_c;
+         //strcpy(msg_c, msg);
+         //env->ReleaseStringUTFChar(msg_in,msg);
+    	 //char *testString = new char[strlen(msg_c)] ;
+         //char testString[] = "print this" ;
+         //return env->NewStringUTF(testString);
+         //return env->NewStringUTF(translate(msg_c,unit));
+         //char *msg_c = new char[strlen(ms)] ;
+         //strcpy(msg_c,ms) ;
+         //msg.assign(ms) ;
+    	 //char *test = "teststring" ;
+         //return env->NewStringUTF("trythis") ; // THIS WORKS
+         //return env->NewStringUTF(test) ;
     } 
 }
+
+
+
 
 
