@@ -5,7 +5,7 @@
     <string name="title_activity_main">MorSMS</string>
     <string name="title_activity_default">MorSMS</string>
     <string name="speedTxt">25</string>
-    <string name="speedSettingView">Vibration unit lenght</string>
+    <string name="speedSettingView">Vibration unit length</string>
     <string name="toCharts">View Morse Code Charts</string>
     <string name="title_activity_charts">Morse Code Charts</string>
     <string name="settingB">Settings</string>

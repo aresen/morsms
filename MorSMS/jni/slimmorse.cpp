@@ -825,7 +825,7 @@ return 0 ;
 
 // c code
 extern "C" {
-    jstring Java_ec327_V1_morsms_VibrationService_trans( JNIEnv * env, jobject obj, jstring msg_in, jint unit_in)
+    jstring Java_com_ec_morsms_VibrationService_trans( JNIEnv * env, jobject obj, jstring msg_in, jint unit_in)
 
     {
     	 //return env->NewStringUTF("Hello!!!!!!!"); // DEBUGGING
