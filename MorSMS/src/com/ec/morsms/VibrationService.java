@@ -39,8 +39,8 @@ public class VibrationService extends Service {
         
     	//get sms from broadcast intent
     	String sms=intent.getStringExtra("sms");
-        
-    	if (sms==""){
+    	
+    	if (sms.equalsIgnoreCase("")) {
     		sms = ((Global) this.getApplication()).getLast();
     	}
     	((Global) this.getApplication()).setLast(sms);

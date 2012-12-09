@@ -18,7 +18,7 @@ public class Global extends Application {
         unitSpeed = 300;
         buttonState = 0;
         maxChar = 0;	//0 means no maximum.. for now.
-        last = "sms";
+        last = "";
         super.onCreate();
     }
     
