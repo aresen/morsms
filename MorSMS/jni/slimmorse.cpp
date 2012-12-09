@@ -50,7 +50,7 @@ vector<int> signal ; // vibration signal
 //signal.push_back (0) ; // first entry is 0 (play immediately) 
 
 // pause for four seconds 
-signal.push_back (4000) ; // first entry is 4000 (pause for four seconds) 
+signal.push_back (1000) ; // first entry is 4000 (pause for four seconds) 
 
 //vector<string> mvec ; // morse code symbols // DEBUGGING
 int txtlen ; // length of txt message
@@ -838,7 +838,7 @@ extern "C" {
 
     {
     	 const char * ms= (env)->GetStringUTFChars(msg_in,NULL);
-    	 msg.assign(ms) ; // assign mg_in to string object
+    	 msg.assign(ms) ; // assign ms to string object
     	 unit = unit_in ;
     	 return env->NewStringUTF(translate()) ;
     } 
