@@ -810,12 +810,13 @@ return 0 ;
 
 //msg.assign("sos") ;
 //cout << "input message >> "  << msg << endl ;
+//cout << "vibration sequence >> " << endl ; 
 //unit = 60 ;
 //char *outp = translate() ;
 
 //for ( int i = 0 ; i < sz ; i++ )
 //{
-//  cout << outp[i] << endl ;
+//  cout << outp[i] ;
 //}
 
 //return 0 ;
