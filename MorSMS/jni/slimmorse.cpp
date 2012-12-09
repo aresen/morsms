@@ -16,6 +16,7 @@ char makeupper(char input) ; // convert lower to upper case
 void sigdur(char input, vector<int> &vec, int unit) ; // signal duration
 string msg; // global string from java jstring
 int unit ; // vibration unit
+int delay ; // initial delay length
 // static int sz ; // global size of return string // DEBUGGING
 
 // function called from java
@@ -50,7 +51,7 @@ vector<int> signal ; // vibration signal
 //signal.push_back (0) ; // first entry is 0 (play immediately) 
 
 // pause for four seconds 
-signal.push_back (1000) ; // first entry is 4000 (pause for four seconds) 
+signal.push_back (delay) ; // first entry is 4000 (pause for four seconds) 
 
 //vector<string> mvec ; // morse code symbols // DEBUGGING
 int txtlen ; // length of txt message
@@ -97,12 +98,11 @@ for ( int i = 0 ; i < txtlen ; i++ )
     }
 }
 
-char * nulloutp = new char[2]; // silence if no output
-// dynamic allocation so it stays in global memory
 
 if ( empty == 1 ) 
 {
 //   exit(0) ; // completely empty (non-translatable) input, leave the program //  DEBUGGING 
+     char * nulloutp = new char[2]; // silence if no output
      nulloutp[0] = '0' ; 
      nulloutp[1] = '\0' ;
      return nulloutp ; // return a silent signal
@@ -834,12 +834,13 @@ return 0 ;
 
 // c code
 extern "C" {
-    jstring Java_com_ec_morsms_VibrationService_trans( JNIEnv * env, jobject obj, jstring msg_in, jint unit_in)
+    jstring Java_com_ec_morsms_VibrationService_trans( JNIEnv * env, jobject obj, jstring msg_in, jint unit_in, jint delay_in )
 
     {
     	 const char * ms= (env)->GetStringUTFChars(msg_in,NULL);
     	 msg.assign(ms) ; // assign ms to string object
-    	 unit = unit_in ;
+    	 unit = unit_in ; // input vibration unit 
+         delay = delay_in ; // input vibration delay 
     	 return env->NewStringUTF(translate()) ;
     } 
 }

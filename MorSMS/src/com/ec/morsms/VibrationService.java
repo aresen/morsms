@@ -64,7 +64,7 @@ public class VibrationService extends Service {
         
         
         
-        String backend_str = trans(sms,unit);		// ***** SWITCH THE COMMENTED LINES HERE FOR PROPER APP
+        String backend_str = trans(sms,unit,1000);		// ***** SWITCH THE COMMENTED LINES HERE FOR PROPER APP
         //String backend_str = "100\n100\n300\n100\n100\n300\n100\n500\n100";
         
         
