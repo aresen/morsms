@@ -12,7 +12,7 @@ using namespace std ;
 // c++ code
 
 char makeupper(char input) ; // convert lower to upper case 
-void morse(char input, vector<string> &vec) ; // morse symbol
+//void morse(char input, vector<string> &vec) ; // morse symbol // DEBUGGING
 void sigdur(char input, vector<int> &vec, int unit) ; // signal duration
 string msg; // global string from java jstring
 int unit ; // vibration unit
@@ -97,9 +97,15 @@ for ( int i = 0 ; i < txtlen ; i++ )
     }
 }
 
+char * nulloutp = new char[2]; // silence if no output
+// dynamic allocation so it stays in global memory
+
 if ( empty == 1 ) 
 {
-   exit(0) ; // completely empty (non-translatable) input, leave the program
+//   exit(0) ; // completely empty (non-translatable) input, leave the program //  DEBUGGING 
+     nulloutp[0] = '0' ; 
+     nulloutp[1] = '\0' ;
+     return nulloutp ; // return a silent signal
 } 
 
 for (int i = 0 ; i < txtlen ; i++) 
