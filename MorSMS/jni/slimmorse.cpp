@@ -12,7 +12,7 @@ using namespace std ;
 // c++ code
 
 char makeupper(char input) ; // convert lower to upper case 
-void morse(char input, vector<string> &vec) ; // morse symbol
+//void morse(char input, vector<string> &vec) ; // morse symbol // DEBUGGING
 void sigdur(char input, vector<int> &vec, int unit) ; // signal duration
 string msg; // global string from java jstring
 int unit ; // vibration unit
@@ -50,7 +50,7 @@ vector<int> signal ; // vibration signal
 //signal.push_back (0) ; // first entry is 0 (play immediately) 
 
 // pause for four seconds 
-signal.push_back (4000) ; // first entry is 4000 (pause for four seconds) 
+signal.push_back (1000) ; // first entry is 4000 (pause for four seconds) 
 
 //vector<string> mvec ; // morse code symbols // DEBUGGING
 int txtlen ; // length of txt message
@@ -97,9 +97,15 @@ for ( int i = 0 ; i < txtlen ; i++ )
     }
 }
 
+char * nulloutp = new char[2]; // silence if no output
+// dynamic allocation so it stays in global memory
+
 if ( empty == 1 ) 
 {
-   exit(0) ; // completely empty (non-translatable) input, leave the program
+//   exit(0) ; // completely empty (non-translatable) input, leave the program //  DEBUGGING 
+     nulloutp[0] = '0' ; 
+     nulloutp[1] = '\0' ;
+     return nulloutp ; // return a silent signal
 } 
 
 for (int i = 0 ; i < txtlen ; i++) 
@@ -799,21 +805,24 @@ int main() {
 return 0 ;
 }  // nothing to see here
 
-// to debug as a c++ file, comment out jni.h , uncomment iostream.h,
-// uncomment the static int sz declaration ,
+// to debug as a c++ file, comment out <jni.h> , uncomment <iostream>,
+// comment out the extern c {} section 
+// comment out the above main()
+// uncomment the static int sz declaration near the beginning of the file
 // and uncomment the sz = kk line located near the end of the translate
 // function. Use the following main()
 
 //int main() {
 
-//string msg_in = "sos" ;
-//cout << "input message >>"  << msg_in << endl ;
-//int unit_in = 60 ;
-//char *outp = translate(msg_in , unit_in) ;
+//msg.assign("sos") ;
+//cout << "input message >> "  << msg << endl ;
+//cout << "vibration sequence >> " << endl ; 
+//unit = 60 ;
+//char *outp = translate() ;
 
 //for ( int i = 0 ; i < sz ; i++ )
 //{
-//  cout << outp[i] << endl ;
+//  cout << outp[i] ;
 //}
 
 //return 0 ;
@@ -828,26 +837,10 @@ extern "C" {
     jstring Java_com_ec_morsms_VibrationService_trans( JNIEnv * env, jobject obj, jstring msg_in, jint unit_in)
 
     {
-    	 //return env->NewStringUTF("Hello!!!!!!!"); // DEBUGGING
     	 const char * ms= (env)->GetStringUTFChars(msg_in,NULL);
-    	 msg.assign(ms) ; // assign mg_in to string object
+    	 msg.assign(ms) ; // assign ms to string object
     	 unit = unit_in ;
     	 return env->NewStringUTF(translate()) ;
-
-    	 // some junk, some works
-         //char * msg_c;
-         //strcpy(msg_c, msg);
-         //env->ReleaseStringUTFChar(msg_in,msg);
-    	 //char *testString = new char[strlen(msg_c)] ;
-         //char testString[] = "print this" ;
-         //return env->NewStringUTF(testString);
-         //return env->NewStringUTF(translate(msg_c,unit));
-         //char *msg_c = new char[strlen(ms)] ;
-         //strcpy(msg_c,ms) ;
-         //msg.assign(ms) ;
-    	 //char *test = "teststring" ;
-         //return env->NewStringUTF("trythis") ; // THIS WORKS
-         //return env->NewStringUTF(test) ;
     } 
 }
 
