@@ -1,0 +1,5 @@
+To debug the backend code ( apart from the app) 
+
+compile and run morse.cpp
+
+run st.m in matlab, this will create a .wav file of the morse sequence
