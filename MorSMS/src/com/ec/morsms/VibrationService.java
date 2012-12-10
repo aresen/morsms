@@ -9,11 +9,13 @@ import android.widget.Toast;
 
 public class VibrationService extends Service {
 	
+	
+	//Setup back-end libraries
 	static {
 		System.loadLibrary("morse");
 	}
-	
 	public native String trans(String message_in, int unit_in, int delay_in);
+	
 	
 	@Override
     public IBinder onBind(Intent arg0) {
@@ -22,7 +24,6 @@ public class VibrationService extends Service {
     @Override
     public void onCreate() {
           super.onCreate();
-          //int x = ((Global) this.getApplication()).getEnableState();
           //Toast.makeText(this,"Service started ..."+x, Toast.LENGTH_SHORT).show();
     }
     
@@ -33,7 +34,7 @@ public class VibrationService extends Service {
     }
     
     
-    
+    //the main service
     @Override
     public void onStart(Intent intent, int startId){
         
@@ -44,57 +45,38 @@ public class VibrationService extends Service {
     	int shake =((Global) this.getApplication()).getShake();
     	
     	if (sms.equalsIgnoreCase("")) {
-    		//if shake is turned off, then just return since this originated from shake
+    		//if shake is turned off, then just return since this originated from shake (don't do vibration)
     		if (shake == 0) return;
     		//else, set the string to be what was last stored
     		sms = ((Global) this.getApplication()).getLast();
     	}
+    	
+    	//set the current phrase to global string
     	((Global) this.getApplication()).setLast(sms);
-    	
-    	
-    	//Toast.makeText(this, sms, Toast.LENGTH_LONG).show();
     	
     	// get global variables maximum character and unit speed
         int unit = ((Global) this.getApplication()).getUnitSpeed();
-        int maxChar = ((Global) this.getApplication()).getMaxChar();
         
         //for debugging, show message
         //Toast.makeText(this,  sms + unit + ", max " + maxChar, Toast.LENGTH_LONG).show();
-
         
         
-        
-        //do the string conversion etc stuff
-        //BACK END STUFF HERE
-        //String backend_str = "100\n100\n300\n100\n100\n300\n100\n500\n100";
-        
-        
-        
-        String backend_str = trans(sms,unit,1000);		// ***** SWITCH THE COMMENTED LINES HERE FOR PROPER APP
-        //String backend_str = "100\n100\n300\n100\n100\n300\n100\n500\n100";
+        String backend_str = trans(sms,unit,1000); // BACK-END conversion
+        //String backend_str = "100\n100\n300\n100\n100\n300\n100\n500\n100"; //for debugging.
         
         
         //for debugging
         //Toast.makeText(this, backend_str, Toast.LENGTH_LONG).show();
+
         
-        
-        
-        //newMax = backend_str.length();
         //convert input string to array of integers
         String[] backArray = backend_str.split("\\t?\\n");
         //String[] lengthInput = backend_str.split("\t");
+
         
-        int newMax;
+        long[] backArrayLong = new long [backArray.length]; 
         
-        if (maxChar==0)
-        	newMax = backArray.length;
-        else if (backArray.length > maxChar*2)	//multiply by two, since vibrator has on AND off signals.
-        	newMax = maxChar*2;
-        else newMax = backArray.length;
-        
-        long[] backArrayLong = new long [newMax]; 
-        
-        for (int i=0; i< newMax; i++){
+        for (int i=0; i< backArray.length; i++){
         //for (int i=0; i< backArray.length; i++){ -TS
         	backArrayLong[i] = Long.valueOf(backArray[i]).longValue();
         }
@@ -102,8 +84,12 @@ public class VibrationService extends Service {
         
         //vibrate this pattern once.
         Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        vibe.vibrate(backArrayLong,-1);	//-1 is for no repeats
         
-        //backArrayLong
+      //check to see if there is a vibrator on the device
+        boolean check = vibe.hasVibrator ();	
+        if (!check)
+        	Toast.makeText(getBaseContext(), "No vibrator on this device", Toast.LENGTH_SHORT).show();
+        else vibe.vibrate(backArrayLong,-1);	//-1 is for no repeats
+
     }
 }

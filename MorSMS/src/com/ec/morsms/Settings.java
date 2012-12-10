@@ -55,18 +55,6 @@ public class Settings extends Activity implements SeekBar.OnSeekBarChangeListene
         if (check==1) checkBox.setChecked(true);
         else checkBox.setChecked(false);
         
-        /*
-        checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener(){
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
-                if (isChecked){
-                	((Global) this.getApplication()).setShake(1);
-                }else{
-                	((Global) this.getApplication()).setShake(0);
-                }  
-            }
-        });
-        */
-        
     }
 
     //what happens when the slider changes
@@ -74,20 +62,18 @@ public class Settings extends Activity implements SeekBar.OnSeekBarChangeListene
        
     	int x;
     	//switch redundant now that there's only one bar...
-        switch (seekBar.getId()) {
-        case R.id.unitSpeedBar:
-        	((Global) this.getApplication()).setUnitSpeed(progress*4+100);
-            x = ((Global) this.getApplication()).getUnitSpeed();
-            mProgressText.setText("Unit vibration length: " + x + " ms");
-            break;
+        
+        ((Global) this.getApplication()).setUnitSpeed(progress*4+100);
+        x = ((Global) this.getApplication()).getUnitSpeed();
+        mProgressText.setText("Unit vibration length: " + x + " ms");
             
-        }
     }
     
-    
+    //tickbox that enables/disables shake to replay last phrase
     public void tickBox(View view){
     	
     	CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox1);
+    	//get the global variable setting, if enabled or not
         check = ((Global) this.getApplication()).getShake();
         if (check==1) {
         	checkBox.setChecked(false);

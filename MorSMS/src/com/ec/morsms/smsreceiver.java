@@ -8,11 +8,11 @@ import android.telephony.SmsMessage;
 import android.widget.Toast;
 import com.ec.morsms.R;
 
+//this extends the broadcaster to pass on received text messages
 public class smsreceiver extends BroadcastReceiver {
 
-	
-	String str = "";     
-    String unit = "";
+	//where message is temporarily stored
+	String str = "";
 	
 	@Override
 	public void onReceive(Context context, Intent intent) {
@@ -24,19 +24,16 @@ public class smsreceiver extends BroadcastReceiver {
         
         if (bundle != null)	//receiver crashes here... since other non null attributes??
         {
-            //---retrieve the SMS message received---
+            //retrieve the SMS message
             Object[] pdus = (Object[]) bundle.get("pdus");
             try{
             	msgs = new SmsMessage[pdus.length]; 
             }
-            //in first case, when initiated by Default button press..
+            //in case something goes wrong, display toast
             catch(Exception e){
-            	Toast.makeText(context, "receiving error" + unit, Toast.LENGTH_SHORT).show();
+            	Toast.makeText(context, "morSMS: receiving error", Toast.LENGTH_SHORT).show();
             	return;
             }	
-            
-            	
-           //msgs = new SmsMessage[pdus.length]; 
             
             for (int i=0; i<msgs.length; i++){
                 msgs[i] = SmsMessage.createFromPdu((byte[])pdus[i]);
@@ -46,7 +43,7 @@ public class smsreceiver extends BroadcastReceiver {
             //now pass this data to the service..
             Intent newIntent=new Intent(context,VibrationService.class);
             newIntent.putExtra("sms",str);
-            context.startService(newIntent);	//should start new service or something
+            context.startService(newIntent);	//starts another service
 
         }
 	}

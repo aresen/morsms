@@ -8,6 +8,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.view.animation.Animation;
@@ -25,6 +26,8 @@ public class Default extends Activity{
 	private Handler mHandler = new Handler();
 	private ShakeListener mShaker;
 	
+	
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -32,9 +35,10 @@ public class Default extends Activity{
         setContentView(R.layout.activity_default);
         
         
-        //to ensure the splash screen happens only once.
+        //to ensure the splash screen happens only once
         int runOnce = ((Global) this.getApplication()).getRun();
         if (runOnce == 0){
+        	//if first time, then animate the logo fading out.
 	        mHandler.postDelayed(new Runnable() {
 	            public void run() {
 	                fadeSplash();
@@ -42,6 +46,7 @@ public class Default extends Activity{
 	         }, 1000);
 	        ((Global) this.getApplication()).setRun();
         }
+        //regardless if first time or not, remove the splashscreen layer now.
         else removeSplash();
         
         
@@ -56,12 +61,9 @@ public class Default extends Activity{
 	      public void onShake()
 	      {
 	    	  //check if shake "enabled"
-	    	  
 	    	  Context context = getBaseContext();
 	    	  Intent newIntent=new Intent(context,VibrationService.class);
 	          newIntent.putExtra("sms","");
-	          //newIntent.putExtra("shake", 1);
-	          //Toast.makeText(context, "wertyu", Toast.LENGTH_LONG).show(); //TS
 	          context.startService(newIntent);
 	      }
 	    });
@@ -76,6 +78,7 @@ public class Default extends Activity{
     }
     
     
+    //used ot aniamte/fade out the splash screen
     public void fadeSplash() {
     	
     	//do only the first time somehow... This si the splash screen, just fades out firs time.
@@ -84,6 +87,8 @@ public class Default extends Activity{
         introLayout.startAnimation(fadeOutAnim);
         introLayout.setVisibility(View.GONE);
     }
+    
+    //user to remove the view of the splash screen
     public void removeSplash() {
     	RelativeLayout introLayout = (RelativeLayout) findViewById(R.id.splashLayout);
         introLayout.setVisibility(View.GONE);
@@ -137,6 +142,13 @@ public class Default extends Activity{
     	
     	
     	if (x == 1) {
+    		
+    		//show toast message of which state the receiver is in
+    		Toast toast = Toast.makeText(getBaseContext(), "SMS receiver is now disabled", Toast.LENGTH_SHORT); //TS
+    		toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 70);	//display toast at top, down from bar
+    		toast.show();
+    		
+    		
     		//set the image to the red, button up
     		img.setImageResource(R.drawable.disabled);
     		//set the global, app-wide setting of enable to 0.
@@ -148,6 +160,12 @@ public class Default extends Activity{
 
     	}
     	else {
+    		//show toast message of which state the receiver is in
+    		
+    		Toast toast = Toast.makeText(getBaseContext(), "SMS receiver is now enabled", Toast.LENGTH_SHORT); //TS
+    		toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 70);	//display toast at top, down from bar
+    		toast.show();
+    		
     		//set the image to the green, button down
     		img.setImageResource(R.drawable.enabled);
     		
@@ -166,7 +184,6 @@ public class Default extends Activity{
     
     //what pressing the charts button will do, open the charts activity
     public void toCharts(View view) {
-        
     	Intent intent = new Intent(this, Charts.class);
         startActivity(intent);
     	
@@ -174,21 +191,18 @@ public class Default extends Activity{
     
     //what pressing the settings button will do, open settings activity
     public void toSettings(View view) {
-        //change to settings.class
     	Intent intent = new Intent(this, Settings.class);
         startActivity(intent);
     }
     
     //what pressing the "Info" button will do, open info activity
     public void toInfo(View view) {
-        //change to settings.class
     	Intent intent = new Intent(this, Info.class);
         startActivity(intent);
     }
     
-  //what pressing the "Morse code Game" button will do, open info activity
+  //what pressing the "Set new phrase" button will do, open phrase activity
     public void toGame(View view) {
-        //change to settings.class
     	Intent intent = new Intent(this, Game.class);
         startActivity(intent);
     }

@@ -5,6 +5,7 @@ import android.os.Vibrator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,15 +16,7 @@ import android.support.v4.app.NavUtils;
 public class Game extends Activity {
 
 	
-	static {
-		System.loadLibrary("morse");
-	}
-	
-	
-	public native String trans(String message_in, int unit_in, int delay_in);
-	
 	//locally store global variables, can't access otherwise in adapter view
-	int unitSpeed;	//not necessary if called from service
 	String word;
 	
     @Override
@@ -54,20 +47,27 @@ public class Game extends Activity {
     //if you press show
     public void onGetPhrase(View view){
     	//just reveal the phrase
-    	word = ((Global) this.getApplication()).getLast();
-    	Toast.makeText(getBaseContext(), "Last phrase: " + word, Toast.LENGTH_LONG).show();
     	
-    	//send it to the vibration service.
+    	//get what the last phrase was
+    	word = ((Global) this.getApplication()).getLast();
+    	
+    	//display this phrase onscreen for a moment
+    	Toast toast = Toast.makeText(getBaseContext(), "Last phrase: " + word, Toast.LENGTH_LONG); //TS
+		toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 70); 	//display toast at top, down from bar
+		toast.show();
+    	
+    	
+    	//send it to the vibration service to also vibrate the phrase again.
     	Context context = getBaseContext();
     	Intent newIntent=new Intent(context,VibrationService.class);
         newIntent.putExtra("sms",word);
         context.startService(newIntent);
     }
     
+    //pressing set phrase, take user input then vibrates/stores it
     public void onSetPhrase(View view){
-    	word = "get from text field";
-    	((Global) this.getApplication()).setLast(word);
     	
+    	//get the current input.
     	EditText editText = (EditText) findViewById(R.id.new_phrase);
     	word = editText.getText().toString();
     	

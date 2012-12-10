@@ -40,7 +40,7 @@ public class Charts extends Activity {
 	        GridView gridview = (GridView) findViewById(R.id.gridview);
 	        gridview.setAdapter(new ImageAdapter(this));
 	        
-	        //setup the global variables, speed and maxchar
+	        //setup the global variables, speed
 	        unitSpeed = ((Global) this.getApplication()).getUnitSpeed();
 	        
             
@@ -78,56 +78,23 @@ public class Charts extends Activity {
 	                
 	                
 	                
-	                //newMax = backend_str.length();
 	                //convert input string to array of integers
 	                String[] backArray = backend_str.split("\\t?\\n");
-	                //String[] lengthInput = backend_str.split("\t");
 	                
 	                long[] backArrayLong = new long [backArray.length]; 
 	                
-	                //for (int i=0; i< newMax; i++){
 	                for (int i=0; i< backArray.length; i++){ //-TS
 	                	backArrayLong[i] = Long.valueOf(backArray[i]).longValue();
 	                }
 	                
-	                
-	                //vibrate this pattern once.
-	                //Vibrator vibe1 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-	                vibe.vibrate(backArrayLong,-1);	//-1 is for no repeats
-	                
-	                
-	                
-	                /*
-	                //normally truncate string based on maxChar; no need here though, as only 1 letter!
-	                
-	                /////
-	                //send in string to c++, get it back as array.. pass in unitSpeed and maxChar..
-	                /////
-	                
-	                //back_end(String messg, int unitTime);
-	                
-	                //currently for testing purposes..
-	                String backend_str = "100\n100\n300\n100\n100\n300\n0\n0\n0";
-	                
-	                //convert input string to array of integers
-	                String[] backArray = backend_str.split("\\r?\\n");
-	                
-	                
-	                long[] backArrayLong = new long [backArray.length];
-	                
-	                
-	                for (int i=0; i< backArray.length; i++){
-	                	backArrayLong[i] = Long.valueOf(backArray[i]).longValue();
-	                }
-	                
 	                //vibrate this pattern once.
 	                vibe.vibrate(backArrayLong,-1);	//-1 is for no repeats
-	                */
+
 	            }
 	        });
 	    }
 	    
-	    // most of this is jsut for setting up grid view.
+	    // most of this is just for setting up grid view.
 	    public class ImageAdapter extends BaseAdapter {
 	        private Context mContext;
 
@@ -202,9 +169,6 @@ public class Charts extends Activity {
 	    public boolean onCreateOptionsMenu(Menu menu) {
 	        getMenuInflater().inflate(R.menu.activity_main, menu);
 	        return true;
-	    }
-	    
-
-	    
+	    }  
 	    
 	}
