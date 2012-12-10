@@ -27,8 +27,8 @@ char * translate()
 // 5 elements of morse code 
 // dit (short) : (.) ; one unit on
 // dah (long)  : (-) ; three units on 
-// inter-character pause ; one unit off
-// inter-word pause ; three units off
+// inter-symbol pause ; one unit off
+// inter-character pause ; three units off
 // inter-word pause ; seven units off
 
 // PROGRAM OVERVIEW : 
