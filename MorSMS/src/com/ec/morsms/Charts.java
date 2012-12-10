@@ -28,7 +28,6 @@ public class Charts extends Activity {
 	
 	//locally store global varaibles, can't access otherwise in adapter view
 	int unitSpeed;
-    int maxChar;	//not really needed here..
 		
 		
 	    @Override
@@ -43,7 +42,6 @@ public class Charts extends Activity {
 	        
 	        //setup the global variables, speed and maxchar
 	        unitSpeed = ((Global) this.getApplication()).getUnitSpeed();
-            maxChar = ((Global) this.getApplication()).getMaxChar();		//not really needed.
 	        
             
 	        //this listens for a tap of one of the button/icons in grid

@@ -5,12 +5,18 @@
         android:orientation="vertical"
         android:background="#212021" >
 
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="fill_parent"
+    android:layout_height="0dp"
+    android:background="#000000"
+    android:layout_weight="4" >    
+    
 	<LinearLayout
 	    xmlns:android="http://schemas.android.com/apk/res/android"
 	    xmlns:tools="http://schemas.android.com/tools"
 	    android:layout_width="match_parent"
-	    android:layout_height="0dp"
-	    android:layout_weight="4"
+	    android:layout_height="match_parent"
 	    android:background="#000000"
 	    android:orientation="vertical"
 	    android:padding="10dp" >
@@ -30,9 +36,41 @@
 	        android:id="@+id/button1"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:textColor="#FFFFFF"
-	        android:text="Get new word" />
+	        android:onClick="onNewWord"
+	        android:text="Get new phrase"
+	        android:textColor="#FFFFFF" />
+
+	    <Space
+	        android:layout_width="match_parent"
+	        android:layout_height="40dp" />
 	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" >
+
+	        <EditText
+	            android:id="@+id/new_phrase"
+	            android:layout_width="wrap_content"
+	            android:layout_height="match_parent"
+	            android:background="#212021"
+	            android:textCursorDrawable="@null"
+	            android:ems="10"
+	            android:textColor="#FFFFFF" >
+
+	        </EditText>
+
+	        <Button
+	            android:id="@+id/button3"
+	            style="?android:attr/buttonStyleSmall"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:onClick="onSetPhrase"
+	            android:textColor="#FFFFFF"
+	            android:text="Set phrase" />
+
+	    </LinearLayout>
+
 	    <Space
 	        android:layout_width="match_parent"
 	        android:layout_height="40dp" />
@@ -41,43 +79,30 @@
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content" >
 
-	        <EditText
-	            android:id="@+id/editText1"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_weight="1"
-	            android:textColor="#FFFFFF"
-	            android:ems="10" >
-
-	            <requestFocus />
-	        </EditText>
-
 	        <Button
 	            android:id="@+id/button2"
 	            style="?android:attr/buttonStyleSmall"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_weight="1"
-	            android:textColor="#FFFFFF"
-	            android:text="Guess" />
-
+	            android:onClick="onGetPhrase"
+	            android:text="Show last message"
+	            android:textColor="#FFFFFF" />
 	    </LinearLayout>
-	    
+
 	    <Space
 	        android:layout_width="match_parent"
 	        android:layout_height="40dp" />
-	    
+
 	    <TextView
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
+	        android:layout_weight="0.12"
 	        android:text="@string/game2"
 	        android:textColor="#FFFFFF"
 	        tools:context=".Info" />
-
-	    
-	    
-	    
 	</LinearLayout>
+    </ScrollView>
     
     <RelativeLayout
         android:layout_width="match_parent"

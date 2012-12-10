@@ -40,7 +40,13 @@ public class VibrationService extends Service {
     	//get sms from broadcast intent
     	String sms=intent.getStringExtra("sms");
     	
+    	//if originated from shake, check to see if setting is on/off.
+    	int shake =((Global) this.getApplication()).getShake();
+    	
     	if (sms.equalsIgnoreCase("")) {
+    		//if shake is turned off, then just return since this originated from shake
+    		if (shake == 0) return;
+    		//else, set the string to be what was last stored
     		sms = ((Global) this.getApplication()).getLast();
     	}
     	((Global) this.getApplication()).setLast(sms);
@@ -68,7 +74,8 @@ public class VibrationService extends Service {
         //String backend_str = "100\n100\n300\n100\n100\n300\n100\n500\n100";
         
         
-        Toast.makeText(this, backend_str, Toast.LENGTH_LONG).show();
+        //for debugging
+        //Toast.makeText(this, backend_str, Toast.LENGTH_LONG).show();
         
         
         

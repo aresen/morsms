@@ -29,12 +29,16 @@
     <string name="title_section2">Section 2</string>
     <string name="title_section1">Section 1</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_chart_info">Charts Info</string>
     <string name="barInfo">\nWhat MorSMS does and how to use it</string>
-    <string name="title_activity_game">Game</string>
-    <string name="game1">Press the button to get a set a new word, then try to enter the correct
-        word in the space below.</string>
-    <string name="game2">Don\'t forget you can check the chart sheets</string>
-    <string name="gamebar">\nTest your morse code!\n</string>
+    <string name="toGame">Set a new phrase</string>
+    <string name="title_activity_game">Phrases</string>
+    <string name="game1">Press the button to get a new phrase, set your own new phrase,
+        or press the button to show the last sms or phrase.</string>
+    <string name="game2">Try guessing the phrase before showing the message!
+        Don\'t forget you can check the chart sheets.
+        You can also shake the phone to replay the last message or phrase.</string>
+    <string name="gamebar">\nTest a phrase\n</string>
+    <string name="warning">Attention! Your phone\'s text-message vibration must be turned off
+        for morSMS to vibrate according to incoming texts!</string>
 
 </resources>

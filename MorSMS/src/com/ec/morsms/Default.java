@@ -55,9 +55,12 @@ public class Default extends Activity{
 	    mShaker.setOnShakeListener(new ShakeListener.OnShakeListener () {
 	      public void onShake()
 	      {
+	    	  //check if shake "enabled"
+	    	  
 	    	  Context context = getBaseContext();
 	    	  Intent newIntent=new Intent(context,VibrationService.class);
 	          newIntent.putExtra("sms","");
+	          //newIntent.putExtra("shake", 1);
 	          //Toast.makeText(context, "wertyu", Toast.LENGTH_LONG).show(); //TS
 	          context.startService(newIntent);
 	      }

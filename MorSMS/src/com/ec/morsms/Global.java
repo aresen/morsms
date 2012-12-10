@@ -11,14 +11,17 @@ public class Global extends Application {
     private int maxChar;		//maximum number of characters input message
     private int runOnce;
     private String last;
+    private int shake;
+    
     //on create application, initialize things
     @Override
     public void onCreate() {
         // Here we could pull values from a config file in res/raw or somewhere else
-        unitSpeed = 300;
+        unitSpeed = 200;
         buttonState = 0;
         maxChar = 0;	//0 means no maximum.. for now.
         last = "";
+        shake = 1;
         super.onCreate();
     }
     
@@ -26,6 +29,14 @@ public class Global extends Application {
     
     
   //global application variables gets/sets
+    public void setShake(int n){
+    	shake = n;
+    }
+    
+    public int getShake(){
+    	return shake;
+    }
+    
     public void setLast(String newStr){
     	last = newStr;
     }

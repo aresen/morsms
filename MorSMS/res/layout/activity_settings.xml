@@ -46,25 +46,15 @@
 	    <Space
 	        android:layout_width="match_parent"
 	        android:layout_height="40dp" />
-	    
-	    <TextView
-	        android:id="@+id/messageLengthBar"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:text="Maximum size input: characters"
-	        android:textColor="#FFFFFF"/>
-	    
-	    
-	    <Space
-	        android:layout_width="match_parent"
-	        android:layout_height="10dp" />
-	    
-	    <SeekBar
-	        android:id="@+id/charMax"
+
+	    <CheckBox
+	        android:id="@+id/checkBox1"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:background="#212021"
-	        android:textColor="#FFFFFF"/>
+	        android:onClick="tickBox"
+	        android:text="        Shake to re-vibrate last phrase"
+	        android:textColor="#FFFFFF" />
 	    
 	    <Space
 	        android:layout_width="match_parent"

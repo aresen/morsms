@@ -40,6 +40,18 @@
 	    <TextView
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
+	        android:text="@string/warning"
+	        tools:context=".Info"
+	        android:background="#F4C540"
+	        android:textColor="#212021" />
+	    
+	    <Space
+	        android:layout_width="match_parent"
+	        android:layout_height="40dp" />
+	    
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
 	        android:text="@string/Info2"
 	        tools:context=".Info"
 	        android:textColor="#FFFFFF" />
