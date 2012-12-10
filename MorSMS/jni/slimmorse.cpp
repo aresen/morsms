@@ -50,8 +50,7 @@ vector<char> cvec ; // vector of translatable characters
 vector<int> signal ; // vibration signal 
 //signal.push_back (0) ; // first entry is 0 (play immediately) 
 
-// pause for four seconds 
-signal.push_back (delay) ; // first entry is 4000 (pause for four seconds) 
+signal.push_back (delay) ; // first entry is delay (pause for delay seconds) 
 
 //vector<string> mvec ; // morse code symbols // DEBUGGING
 int txtlen ; // length of txt message
