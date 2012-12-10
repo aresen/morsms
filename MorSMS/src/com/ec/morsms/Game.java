@@ -56,6 +56,12 @@ public class Game extends Activity {
     	//just reveal the phrase
     	word = ((Global) this.getApplication()).getLast();
     	Toast.makeText(getBaseContext(), "Last phrase: " + word, Toast.LENGTH_LONG).show();
+    	
+    	//send it to the vibration service.
+    	Context context = getBaseContext();
+    	Intent newIntent=new Intent(context,VibrationService.class);
+        newIntent.putExtra("sms",word);
+        context.startService(newIntent);
     }
     
     public void onSetPhrase(View view){
@@ -83,7 +89,7 @@ public class Game extends Activity {
     							"Shakespeare"};
     	
     	//generate random integer
-    	int index = (int)(Math.random() * ((rand_phrase_size) + 1));
+    	int index = (int)(Math.random() * ((rand_phrase_size-1) + 1));
     	
     	//select random word
     	word = rand_array[index];
@@ -95,28 +101,6 @@ public class Game extends Activity {
         newIntent.putExtra("sms",word);
         context.startService(newIntent);
     	
-    	/*
-    	unitSpeed = ((Global) this.getApplication()).getUnitSpeed();
-    	//((Global) this.getApplication()).setLast(word);
-        String backend_str = trans(word,unitSpeed,200);	//back end.
-        
-        //save this word as last "message", user convenience
-        
-        
-        String[] backArray = backend_str.split("\\t?\\n");
-        
-        long[] backArrayLong = new long [backArray.length]; 
-        
-        //for (int i=0; i< newMax; i++){
-        for (int i=0; i< backArray.length; i++){ //-TS
-        	backArrayLong[i] = Long.valueOf(backArray[i]).longValue();
-        }
-        
-        
-        //vibrate this pattern once.
-        Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        vibe.vibrate(backArrayLong,-1);	//-1 is for no repeats
-        */
     	
     	
     }
