@@ -25,7 +25,7 @@ public class Charts extends Activity {
 	
 	public native String trans(String message_in, int unit_in, int delay_in);
 	
-	//locally store global varaibles, can't access otherwise in adapter view
+	//locally store global variables, can't access otherwise in adapter view
 	int unitSpeed;
 		
 		
