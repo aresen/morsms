@@ -10,6 +10,7 @@ import android.hardware.SensorManager;
 import android.content.Context;
 import java.lang.UnsupportedOperationException;
 
+@SuppressWarnings("deprecation")
 public class ShakeListener implements SensorListener 
 {
   private static final int FORCE_THRESHOLD = 1000;

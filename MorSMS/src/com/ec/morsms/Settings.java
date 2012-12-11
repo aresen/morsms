@@ -2,13 +2,11 @@ package com.ec.morsms;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.support.v4.app.NavUtils;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import com.ec.morsms.R;
@@ -92,12 +90,18 @@ public class Settings extends Activity implements SeekBar.OnSeekBarChangeListene
     public void onStopTrackingTouch(SeekBar seekBar) {    
     }
 
-    
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
+                // This is called when the Home (Up) button is pressed
+                // in the Action Bar.
+                Intent parentActivityIntent = new Intent(this, Default.class);
+                parentActivityIntent.addFlags(
+                        Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                        Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(parentActivityIntent);
+                finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);

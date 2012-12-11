@@ -1,7 +1,6 @@
 package com.ec.morsms;
 
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -9,9 +8,9 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.support.v4.app.NavUtils;
 
 public class Game extends Activity {
 
@@ -31,13 +30,19 @@ public class Game extends Activity {
         getMenuInflater().inflate(R.menu.activity_game, menu);
         return true;
     }
-
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
+                // This is called when the Home (Up) button is pressed
+                // in the Action Bar.
+                Intent parentActivityIntent = new Intent(this, Default.class);
+                parentActivityIntent.addFlags(
+                        Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                        Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(parentActivityIntent);
+                finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -69,6 +74,7 @@ public class Game extends Activity {
     	
     	//get the current input.
     	EditText editText = (EditText) findViewById(R.id.new_phrase);
+    	editText.setInputType(EditorInfo.TYPE_NULL);
     	word = editText.getText().toString();
     	
     	//send it to the vibration service.

@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.widget.Toast;
-import com.ec.morsms.R;
 
 //this extends the broadcaster to pass on received text messages
 public class smsreceiver extends BroadcastReceiver {

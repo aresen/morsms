@@ -5,7 +5,6 @@ import android.os.Vibrator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,6 +33,7 @@ public class Charts extends Activity {
 	    public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
 	        setContentView(R.layout.activity_charts);
+	        
 	        getActionBar().setDisplayHomeAsUpEnabled(true);
 	        
 	        
@@ -153,22 +153,25 @@ public class Charts extends Activity {
 	        };
 	    }
 	    
-	    // sets home activity
-	    @Override
-	    public boolean onOptionsItemSelected(MenuItem item) {
-	        switch (item.getItemId()) {
-	            case android.R.id.home:
-	                NavUtils.navigateUpFromSameTask(this);
-	                return true;
-	        }
-	        return super.onOptionsItemSelected(item);
-	    }
-	    
-	    
 	    @Override
 	    public boolean onCreateOptionsMenu(Menu menu) {
 	        getMenuInflater().inflate(R.menu.activity_main, menu);
 	        return true;
 	    }  
-	    
+	    @Override
+	    public boolean onOptionsItemSelected(MenuItem item) {
+	        switch (item.getItemId()) {
+	            case android.R.id.home:
+	                // This is called when the Home (Up) button is pressed
+	                // in the Action Bar.
+	                Intent parentActivityIntent = new Intent(this, Default.class);
+	                parentActivityIntent.addFlags(
+	                        Intent.FLAG_ACTIVITY_CLEAR_TOP |
+	                        Intent.FLAG_ACTIVITY_NEW_TASK);
+	                startActivity(parentActivityIntent);
+	                finish();
+	                return true;
+	        }
+	        return super.onOptionsItemSelected(item);
+	    }
 	}
