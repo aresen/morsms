@@ -451,7 +451,7 @@ int lp = 7*unit ; // inter-word pause
 //      ("- . .") ;    
         vec.push_back (dah) ;
         vec.push_back (sp) ;
-        vec.push_back (dah) ;
+        vec.push_back (dot) ;
         vec.push_back (sp) ;
         vec.push_back (dot) ;
      }
