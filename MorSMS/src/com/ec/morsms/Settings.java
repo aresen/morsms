@@ -18,6 +18,7 @@ public class Settings extends Activity implements SeekBar.OnSeekBarChangeListene
     TextView enable;
     TextView messageLength;
     String state;
+    int check;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,13 @@ public class Settings extends Activity implements SeekBar.OnSeekBarChangeListene
         if (y==1) state = "enabled.";
         else state = "disabled. Press the red button on the home page to enable!";
         enable.setText("Morse code message vibration is currently " + state);
+        
+        //set check box based on global setting
+        CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox1);
+        check = ((Global) this.getApplication()).getShake();
+        if (check==1) checkBox.setChecked(true);
+        else checkBox.setChecked(false);
+        
     }
 
     //what happens when the slider changes
@@ -77,6 +85,25 @@ public class Settings extends Activity implements SeekBar.OnSeekBarChangeListene
             
         }
     }
+    
+    
+    //tickbox that enables/disables shake to replay last phrase
+    public void tickBox(View view){
+    	
+    	CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox1);
+    	//get the global variable setting, if enabled or not
+        check = ((Global) this.getApplication()).getShake();
+        if (check==1) {
+        	checkBox.setChecked(false);
+        	((Global) this.getApplication()).setShake(0);
+        }
+        else {
+        	checkBox.setChecked(true);
+        	((Global) this.getApplication()).setShake(1);
+        }
+    	
+    }
+    
     
     //"implementation" for the slider
     public void onStartTrackingTouch(SeekBar seekBar) {   
