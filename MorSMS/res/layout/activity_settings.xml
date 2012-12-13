@@ -19,57 +19,63 @@
 	    android:layout_marginTop="20dp"
 	    android:layout_marginLeft="10dp"
 	    android:layout_marginRight="10dp"
-	    android:layout_marginBottom="20dp" >
-		
-	    <Space
-	        android:layout_width="match_parent"
-	        android:layout_height="20dp" />
-	    
+	    android:layout_marginBottom="20dp"
+	     >
+
 	    <TextView
 	        android:id="@+id/unitBarText"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:text="Unit vibration length: ms"
+	        android:layout_marginBottom="20dp"
 	        android:textColor="#FFFFFF"/>
-	    
-	    <Space
-	        android:layout_width="match_parent"
-	        android:layout_height="10dp" />
+
 	    
 	    <SeekBar
 	        android:id="@+id/unitSpeedBar"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
+	        android:layout_marginBottom="40dp"
 	        android:background="#212021"
 	        android:textColor="#FFFFFF"/>
-	    
-	    <Space
-	        android:layout_width="match_parent"
-	        android:layout_height="40dp" />
 
 	    <CheckBox
 	        android:id="@+id/checkBox1"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
+	        android:layout_marginBottom="40dp"
 	        android:background="#212021"
 	        android:onClick="tickBox"
 	        android:text="        Shake to re-vibrate last phrase"
 	        android:textColor="#FFFFFF" />
-	    
-	    <Space
+
+	    <TextView
+	        android:id="@+id/messageLengthBar"
 	        android:layout_width="match_parent"
-	        android:layout_height="40dp" />
+	        android:layout_height="wrap_content"
+	        android:text="Maximum size input: characters"
+	        android:layout_marginBottom="20dp"
+	        android:textColor="#FFFFFF"/>
+
+
+
+	    <SeekBar
+	        android:id="@+id/charMax"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginBottom="40dp"
+	        android:background="#212021"
+	        android:textColor="#FFFFFF"/>
+
 	    
 	    <TextView
 	        android:id="@+id/enableState"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:text="Current state {/}"
+	        android:layout_marginBottom="40dp"
 	        android:textColor="#FFFFFF"/>
-	    
-	    <Space
-	        android:layout_width="match_parent"
-	        android:layout_height="30dp" />
+
 
 	</LinearLayout>
 	</ScrollView>

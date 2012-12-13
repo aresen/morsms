@@ -44,6 +44,7 @@ public class VibrationService extends Service {
     	//if originated from shake, check to see if setting is on/off.
     	int shake =((Global) this.getApplication()).getShake();
     	
+    	
     	if (sms.equalsIgnoreCase("")) {
     		//if shake is turned off, then just return since this originated from shake (don't do vibration)
     		if (shake == 0) return;
@@ -56,9 +57,16 @@ public class VibrationService extends Service {
     	
     	// get global variables maximum character and unit speed
         int unit = ((Global) this.getApplication()).getUnitSpeed();
+        int maxChar = ((Global) this.getApplication()).getMaxChar();
+        
+        
+        //now truncate string according to maxChar
+        if (maxChar !=0)
+        	sms = sms.substring(0,maxChar);
+        
         
         //for debugging, show message
-        //Toast.makeText(this,  sms + unit + ", max " + maxChar, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,  sms + ", max " + maxChar, Toast.LENGTH_LONG).show();
         
         
         String backend_str = trans(sms,unit,1000); // BACK-END conversion

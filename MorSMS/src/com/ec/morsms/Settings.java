@@ -2,11 +2,9 @@ package com.ec.morsms;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.Intent;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import com.ec.morsms.R;
@@ -15,10 +13,11 @@ public class Settings extends Activity implements SeekBar.OnSeekBarChangeListene
 
 	
 	SeekBar mSeekBar;
+	SeekBar charMax;
     TextView mProgressText;
     TextView enable;
+    TextView messageLength;
     String state;
-    int check;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,9 +28,12 @@ public class Settings extends Activity implements SeekBar.OnSeekBarChangeListene
         
         //get objects ready
         mSeekBar = (SeekBar)findViewById(R.id.unitSpeedBar);
+        charMax = (SeekBar)findViewById(R.id.charMax);
         mSeekBar.setOnSeekBarChangeListener(this);
+        charMax.setOnSeekBarChangeListener(this);
         mProgressText = (TextView)findViewById(R.id.unitBarText);
         enable = (TextView)findViewById(R.id.enableState);
+        messageLength = (TextView)findViewById(R.id.messageLengthBar);
         
         
         //text above seekBar for speed
@@ -41,47 +43,39 @@ public class Settings extends Activity implements SeekBar.OnSeekBarChangeListene
         mProgressText.setText("Unit vibration length: " + x + " ms");
         mSeekBar.setProgress((x-100)/4);	//sets the seekbar to correct position
         
+        //text for macChar seekbar
+        int mc = ((Global) this.getApplication()).getMaxChar();
+        messageLength.setText("Maximum number of vibrations: \n\t" + mc + " (zero is no limit)");
+        charMax.setProgress(mc);
+        
         //General message saying current status of morSMS message receiver
         int y = ((Global) this.getApplication()).getEnableState();
         if (y==1) state = "enabled.";
         else state = "disabled. Press the red button on the home page to enable!";
         enable.setText("Morse code message vibration is currently " + state);
-        
-        //set check box based on global setting
-        CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox1);
-        check = ((Global) this.getApplication()).getShake();
-        if (check==1) checkBox.setChecked(true);
-        else checkBox.setChecked(false);
-        
     }
 
     //what happens when the slider changes
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromTouch) {
        
     	int x;
-    	//switch redundant now that there's only one bar...
+    	//Log.v("", "" + seekBar);
+
+        switch (seekBar.getId()) {
         
-        ((Global) this.getApplication()).setUnitSpeed(progress*4+100);
-        x = ((Global) this.getApplication()).getUnitSpeed();
-        mProgressText.setText("Unit vibration length: " + x + " ms");
+        case R.id.unitSpeedBar:
+        	((Global) this.getApplication()).setUnitSpeed(progress*4+100);
+            x = ((Global) this.getApplication()).getUnitSpeed();
+            mProgressText.setText("Unit vibration length: " + x + " ms");
+            break;
             
-    }
-    
-    //tickbox that enables/disables shake to replay last phrase
-    public void tickBox(View view){
-    	
-    	CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox1);
-    	//get the global variable setting, if enabled or not
-        check = ((Global) this.getApplication()).getShake();
-        if (check==1) {
-        	checkBox.setChecked(false);
-        	((Global) this.getApplication()).setShake(0);
+        case R.id.charMax:
+        	((Global) this.getApplication()).setMaxChar(progress);
+        	x = ((Global) this.getApplication()).getMaxChar();
+            messageLength.setText("Maximum character input: " + x + " characters\n(zero is no limit)");
+            break;
+            
         }
-        else {
-        	checkBox.setChecked(true);
-        	((Global) this.getApplication()).setShake(1);
-        }
-    	
     }
     
     //"implementation" for the slider
@@ -90,18 +84,12 @@ public class Settings extends Activity implements SeekBar.OnSeekBarChangeListene
     public void onStopTrackingTouch(SeekBar seekBar) {    
     }
 
+    
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                // This is called when the Home (Up) button is pressed
-                // in the Action Bar.
-                Intent parentActivityIntent = new Intent(this, Default.class);
-                parentActivityIntent.addFlags(
-                        Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                        Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(parentActivityIntent);
-                finish();
+                NavUtils.navigateUpFromSameTask(this);
                 return true;
         }
         return super.onOptionsItemSelected(item);

@@ -1,6 +1,8 @@
 package com.ec.morsms;
 import android.app.Application;
 
+//hello me
+
 public class Global extends Application {
 	
 	
@@ -8,6 +10,7 @@ public class Global extends Application {
     private int unitSpeed;		//the value of of vibration speed
     private int buttonState;	//whether message vibration is enabled or not
     private int runOnce;		//used to make the logo fadeout animation happen only once
+    private int maxChar;		//maximum number of characters input message
     private String last;		//this stores the last message or phrase
     private int shake;			//setting for if shaking will re-vibrate last message
     
@@ -63,6 +66,15 @@ public class Global extends Application {
 	
     public void setUnitSpeed(int set) {
     	this.unitSpeed = set;
+    }
+    
+   //vibration maxChar
+    public int getMaxChar(){
+    	return maxChar;
+    }
+
+    public void setMaxChar(int set) {
+    	this.maxChar = set;
     }
 
 }
