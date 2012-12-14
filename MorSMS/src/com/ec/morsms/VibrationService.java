@@ -59,9 +59,11 @@ public class VibrationService extends Service {
         int unit = ((Global) this.getApplication()).getUnitSpeed();
         int maxChar = ((Global) this.getApplication()).getMaxChar();
         
-        
+
         //now truncate string according to maxChar
-        if (maxChar !=0)
+
+        if (maxChar !=0 && sms.length() > maxChar)
+
         	sms = sms.substring(0,maxChar);
         
         
