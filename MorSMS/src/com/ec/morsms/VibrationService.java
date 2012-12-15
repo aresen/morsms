@@ -38,6 +38,10 @@ public class VibrationService extends Service {
     @Override
     public void onStart(Intent intent, int startId){
         
+    	//check for null input
+    	if (intent == null)
+    		return;
+    	
     	//get sms from broadcast intent
     	String sms=intent.getStringExtra("sms");
     	
